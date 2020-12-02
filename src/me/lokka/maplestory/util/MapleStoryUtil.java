@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Properties;
 
 /**
  * @Description 加载图片的工具类（从硬盘加载到内存

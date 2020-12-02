@@ -21,8 +21,10 @@ public class MapleStoryFrame extends Frame {
         // 窗口的 LOGO
         this.setIconImage(ImageUtil.getKey("logo"));
         this.setTitle(Constant.TITLE);
+
         // 相对于屏幕水平垂直居中
         this.setLocationRelativeTo(null);
+
         this.setVisible(true);
         // 窗口的不可改变大小
         this.setResizable(false);

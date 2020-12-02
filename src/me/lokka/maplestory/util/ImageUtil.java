@@ -35,6 +35,14 @@ public class ImageUtil {
         for (int i = 0; i < 5; i++) {
             images.put("hero_left_walk_" + i, MapleStoryUtil.getImage("hero/left/walk1_" + i));
         }
+        // hero right prone
+        for (int i = 0; i < 2; i++) {
+            images.put("hero_right_prone_" + i, MapleStoryUtil.getImage("hero/right/prone_" + i));
+        }
+        // hero left prone
+        for (int i = 0; i < 2; i++) {
+            images.put("hero_left_prone_" + i, MapleStoryUtil.getImage("hero/left/prone_" + i));
+        }
         // hero right jump
         for (int i = 0; i < 2; i++) {
             images.put("hero_right_jump_" + i, MapleStoryUtil.getImage("hero/right/jump_" + i));
@@ -43,13 +51,13 @@ public class ImageUtil {
         for (int i = 0; i < 2; i++) {
             images.put("hero_left_jump_" + i, MapleStoryUtil.getImage("hero/left/jump_" + i));
         }
-        // hero right prone
-        for (int i = 0; i < 2; i++) {
-            images.put("hero_right_prone_" + i, MapleStoryUtil.getImage("hero/right/prone_" + i));
+        // hero right shoot
+        for (int i = 0; i < 4; i++) {
+            images.put("hero_right_shoot_" + i, MapleStoryUtil.getImage("hero/right/shoot1_" + i));
         }
-        // hero left prone
-        for (int i = 0; i < 2; i++) {
-            images.put("hero_left_prone_" + i, MapleStoryUtil.getImage("hero/left/prone_" + i));
+        // hero left shoot
+        for (int i = 0; i < 4; i++) {
+            images.put("hero_left_shoot_" + i, MapleStoryUtil.getImage("hero/left/shoot1_" + i));
         }
     }
 

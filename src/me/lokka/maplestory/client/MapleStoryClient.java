@@ -41,13 +41,17 @@ public class MapleStoryClient extends MapleStoryFrame {
     @Override
     public void paint(Graphics g) {
         //background.draw(g);
-        hero.draw(g);
         Font f = g.getFont();
-        g.setFont(new Font("Times New Roman", Font.BOLD, 18));
-        Color c = g.getColor();
-        g.setColor(Color.GRAY);
-        g.setColor(c);
+        g.setFont(new Font("Times New Roman", Font.BOLD, 23));
+        g.setColor(Color.BLACK);
+        g.drawString("Hero.y: " + hero.y, 200, 150);
+        g.drawString("Hero.left: " + hero.left, 200, 180);
+        g.drawString("Hero.right: " + hero.right, 200, 210);
+        g.drawString("Hero.jump: " + hero.jump, 200, 240);
+        g.drawString("Hero.prone: " + hero.prone, 200, 270);
+        g.drawString("Hero.shoot: " + hero.shoot, 200, 300);
         g.setFont(f);
+        hero.draw(g);
     }
 
     public static void main(String[] args) {

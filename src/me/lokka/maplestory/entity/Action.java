@@ -6,5 +6,5 @@ package me.lokka.maplestory.entity;
  * @Date: 2020/12/1 10:41 AM
  */
 public enum Action {
-    STAND, WALK, JUMP, PRONE;
+    STAND, WALK, JUMP, PRONE, SHOOT;
 }
