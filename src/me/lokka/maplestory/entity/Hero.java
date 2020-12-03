@@ -111,7 +111,7 @@ public class Hero extends AbstractMapleStoryObject {
 
     @Override
     public void move() {
-        if (prone && !jump) {
+        if (prone) {
             action = Action.PRONE;
             return;
         }
@@ -129,6 +129,7 @@ public class Hero extends AbstractMapleStoryObject {
         }
 
         if (shoot) {
+            shoot();
             action = Action.SHOOT;
         }
 
@@ -139,6 +140,26 @@ public class Hero extends AbstractMapleStoryObject {
 
         outOfBounds();
 
+    }
+
+    private int shoot_rate = 0;
+    /**
+     * 射箭的方法
+     */
+    private void shoot() {
+        shoot_rate++;
+        if (shoot_rate % 8 == 0) {
+            shoot_rate = 0;
+            shoot = false;
+            int arrow_x = x, arrow_y = y + 50;
+            if (dir == Direction.RIGHT) {
+                arrow_x += 26;
+            }
+            // 创建弓箭对象
+            Arrow arrow =  new Arrow(mapleStoryClient, arrow_x, arrow_y, dir);
+            // 通过中介者模式访问主类中的容器，并添加进去
+            mapleStoryClient.arrowList.add(arrow);
+        }
     }
 
     private void outOfBounds() {
@@ -240,8 +261,7 @@ public class Hero extends AbstractMapleStoryObject {
                 jump = true;
                 break;
             case KeyEvent.VK_J:
-                // shoot = true;
-                shoot = !shoot;
+                shoot = true;
                 break;
             default:
                 break;

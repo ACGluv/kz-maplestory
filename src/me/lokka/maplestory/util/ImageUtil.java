@@ -59,6 +59,10 @@ public class ImageUtil {
         for (int i = 0; i < 4; i++) {
             images.put("hero_left_shoot_" + i, MapleStoryUtil.getImage("hero/left/shoot1_" + i));
         }
+        // arrow left
+        images.put("arrow_left_general", MapleStoryUtil.getImage("arrow/left/0"));
+        // arrow right
+        images.put("arrow_right_general", MapleStoryUtil.getImage("arrow/right/0"));
     }
 
     /**

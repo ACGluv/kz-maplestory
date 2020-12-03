@@ -58,5 +58,8 @@ public class Constant {
      * 跳跃的初速度
      */
     public static final double INIT_JUMP_V0 = Double.parseDouble(props.getProperty("INIT_JUMP_V0"));
-
+    /**
+     * 弓箭的速度
+     */
+    public static final int ARROW_SPEED = Integer.parseInt(props.getProperty("ARROW_SPEED"));
 }
