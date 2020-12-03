@@ -107,7 +107,7 @@ public class Hero extends AbstractMapleStoryObject {
     }
 
     private int step = -1, cnt = 0;
-    public boolean right, left, prone, jump, shoot;
+    public boolean right, left, prone, jump, shoot, moving;
 
     @Override
     public void move() {
@@ -119,13 +119,16 @@ public class Hero extends AbstractMapleStoryObject {
         if (left && !right) {
             dir = Direction.LEFT;
             action = Action.WALK;
+            moving = true;
             x -= speed;
         } else if (!left && right) {
             dir = Direction.RIGHT;
             action = Action.WALK;
+            moving = true;
             x += speed;
         } else {
             action = Action.STAND;
+            moving = false;
         }
 
         if (shoot) {

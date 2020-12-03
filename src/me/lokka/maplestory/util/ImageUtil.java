@@ -18,7 +18,7 @@ public class ImageUtil {
         // logo 图片
         images.put("logo", MapleStoryUtil.getImage("icon/logo"));
         // background
-        images.put("background", MapleStoryUtil.getImage("background/nasa"));
+        images.put("background", MapleStoryUtil.getImage("background/origin"));
         // hero right stand
         for (int i = 0; i < 4; i++) {
             images.put("hero_right_stand_" + i, MapleStoryUtil.getImage("hero/right/stand1_" + i));

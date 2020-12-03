@@ -1,5 +1,6 @@
 package me.lokka.maplestory.client;
 
+import me.lokka.maplestory.constant.Constant;
 import me.lokka.maplestory.entity.Arrow;
 import me.lokka.maplestory.entity.Background;
 import me.lokka.maplestory.entity.Hero;
@@ -37,7 +38,7 @@ public class MapleStoryClient extends MapleStoryFrame {
     /**
      * 背景图片
      */
-    public Background background = new Background(this, "background", 0, 0);
+    public Background background = new Background(this, "background", 0, Constant.GAME_HEIGHT - 1216);
     /**
      * 英雄
      */
@@ -49,15 +50,20 @@ public class MapleStoryClient extends MapleStoryFrame {
 
     @Override
     public void paint(Graphics g) {
-        //background.draw(g);
+        background.draw(g);
+        hero.draw(g);
         Font f = g.getFont();
         g.setFont(new Font("Times New Roman", Font.BOLD, 23));
-        g.setColor(Color.BLACK);
+        g.setColor(Color.LIGHT_GRAY);
+        g.drawString("Hero.x: " + hero.x, 200, 120);
         g.drawString("Hero.y: " + hero.y, 200, 150);
         g.drawString("Hero.action: " + hero.action, 200, 180);
-        g.drawString("Arrow.size " + arrowList.size(), 200, 210);
+        g.drawString("Background.x: " + background.x, 200, 210);
+        g.drawString("Hero.speed: " + hero.speed, 200, 240);
+        g.drawString("Background.speed: " + background.speed, 200, 270);
+        g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
         g.setFont(f);
-        hero.draw(g);
+
         for (Arrow arrow : arrowList) {
             arrow.draw(g);
         }
