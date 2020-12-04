@@ -2,10 +2,8 @@ package me.lokka.maplestory.entity;
 
 import me.lokka.maplestory.client.MapleStoryClient;
 import me.lokka.maplestory.constant.Constant;
-import me.lokka.maplestory.util.ImageUtil;
 
 import java.awt.*;
-import java.util.UUID;
 
 /**
  * @Description 背景图片类
@@ -18,14 +16,14 @@ public class Background extends AbstractMapleStoryObject{
         this.speed = Constant.HERO_SPEED;
     }
 
-    public Background(MapleStoryClient mapleStoryClient, String imgKey, int x, int y) {
+    public Background(MapleStoryClient mapleStoryClient, Image img) {
         this();
         this.mapleStoryClient = mapleStoryClient;
-        this.img = ImageUtil.getKey(imgKey);
+        this.img = img;
         this.width = img.getWidth(null);
         this.height = img.getHeight(null);
-        this.x = x;
-        this.y = y;
+        this.x = 0;
+        this.y = Constant.GAME_HEIGHT - this.height;
         this.dir = Direction.LEFT;
         this.action = Action.STAND;
     }
@@ -65,8 +63,4 @@ public class Background extends AbstractMapleStoryObject{
         g.drawImage(img, x, y, null);
     }
 
-//    public static void main(String[] args) {
-//        UUID uuid = UUID.randomUUID();
-//        System.out.println(uuid.toString().replace("-", ""));
-//    }
 }

@@ -3,7 +3,7 @@ package me.lokka.maplestory.entity;
 import me.lokka.maplestory.client.MapleStoryClient;
 
 import java.awt.*;
-import java.util.concurrent.locks.Lock;
+import java.util.List;
 
 /**
  * @Description 项目中所有的实体类都要继承此抽象类
@@ -11,7 +11,10 @@ import java.util.concurrent.locks.Lock;
  * @Date: 2020/11/30 10:44 AM
  */
 public abstract class AbstractMapleStoryObject implements Moveable, Drawable {
-
+    /**
+     * 图片列表
+     */
+    public List<Image> imgs;
     /**
      * 图片对象
      */
@@ -52,4 +55,24 @@ public abstract class AbstractMapleStoryObject implements Moveable, Drawable {
      */
     public Action action;
 
+    /**
+     * 名称
+     */
+    public String name;
+    /**
+     * 等级
+     */
+    public int level;
+    /**
+     * 血量
+     */
+    public int HP;
+    /**
+     * 法量
+     */
+    public int MP;
+    /**
+     * 经验值
+     */
+    public int EXP;
 }

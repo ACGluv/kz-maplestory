@@ -2,9 +2,9 @@ package me.lokka.maplestory.entity;
 
 import me.lokka.maplestory.client.MapleStoryClient;
 import me.lokka.maplestory.constant.Constant;
-import me.lokka.maplestory.util.ImageUtil;
 
 import java.awt.*;
+import java.util.List;
 
 /**
  * @Description 箭矢类
@@ -12,26 +12,24 @@ import java.awt.*;
  * @Date: 2020/12/3 8:23 AM
  */
 public class Arrow extends AbstractMapleStoryObject {
-    private static  Image[] imgs = new Image[2];
-    static {
-        // 左 普通
-        imgs[0] = ImageUtil.getKey("arrow_left_general");
-        // 右 普通
-        imgs[1] = ImageUtil.getKey("arrow_right_general");
-    }
+    /**
+     * left : 0
+     * right : 1
+     */
 
     public Arrow() {
         this.speed = Constant.ARROW_SPEED;
     }
 
-    public Arrow(MapleStoryClient mapleStoryClient, int x, int y, Direction dir) {
+    public Arrow(MapleStoryClient mapleStoryClient, List<Image> images, int x, int y, Direction dir) {
         this();
         this.mapleStoryClient = mapleStoryClient;
+        this.imgs = images;
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.width = imgs[0].getWidth(null);
-        this.height = imgs[0].getHeight(null);
+        this.width = imgs.get(0).getWidth(null);
+        this.height = imgs.get(0).getHeight(null);
         this.action = Action.STAND;
     }
 
@@ -55,10 +53,10 @@ public class Arrow extends AbstractMapleStoryObject {
         move();
         switch (dir) {
             case LEFT:
-                img = imgs[0];
+                img = imgs.get(0);
                 break;
             case RIGHT:
-                img = imgs[1];
+                img = imgs.get(1);
                 break;
             default:
                 break;
@@ -70,7 +68,7 @@ public class Arrow extends AbstractMapleStoryObject {
      * 判断箭矢出界的方法
      */
     private void outOfBounds() {
-        if (x < -500 || x > Constant.GAME_WIDTH +  500) {
+        if (x < -500 || x > Constant.GAME_WIDTH + 500) {
             mapleStoryClient.arrowList.remove(this);
         }
     }

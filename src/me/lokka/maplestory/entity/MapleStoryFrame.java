@@ -19,7 +19,7 @@ public class MapleStoryFrame extends Frame {
     public void loadFrame() {
         this.setSize(Constant.GAME_WIDTH, Constant.GAME_HEIGHT);
         // 窗口的 LOGO
-        this.setIconImage(ImageUtil.getKey("logo"));
+        this.setIconImage(ImageUtil.getValue("logo").get(0));
         this.setTitle(Constant.TITLE);
 
         // 相对于屏幕水平垂直居中

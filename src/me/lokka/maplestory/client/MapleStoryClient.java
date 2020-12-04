@@ -1,16 +1,14 @@
 package me.lokka.maplestory.client;
 
 import me.lokka.maplestory.constant.Constant;
-import me.lokka.maplestory.entity.Arrow;
-import me.lokka.maplestory.entity.Background;
-import me.lokka.maplestory.entity.Hero;
-import me.lokka.maplestory.entity.MapleStoryFrame;
+import me.lokka.maplestory.entity.*;
+import me.lokka.maplestory.util.ImageUtil;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @Description 项目运行的主类
@@ -38,34 +36,53 @@ public class MapleStoryClient extends MapleStoryFrame {
     /**
      * 背景图片
      */
-    public Background background = new Background(this, "background", 0, Constant.GAME_HEIGHT - 1216);
+    public Background background = new Background(this, ImageUtil.getValue("background").get(0));
     /**
      * 英雄
      */
-    public Hero hero = new Hero(this, 300, 700);
+    public Hero hero = new Hero(this, ImageUtil.getValue("redhair"), 300, 565);
     /**
-     * 箭矢
+     * 箭矢的容器
      */
     public List<Arrow> arrowList = new CopyOnWriteArrayList<>();
+    /**
+     * 怪物的容器
+     */
+    public List<Mob> mobList = new CopyOnWriteArrayList<>();
+
+    /**
+     * 初始化 Mobs 容器
+     */
+    {
+        for (int i = 0; i < 5; i++) {
+            Mob mob = new Mob(this, ImageUtil.getValue("dechick"), i * 100 + 400, 565);
+            mobList.add(mob);
+        }
+    }
 
     @Override
     public void paint(Graphics g) {
+        Image canvas = ImageUtil.getValue("background").get(1);
+        g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
         background.draw(g);
         hero.draw(g);
         Font f = g.getFont();
         g.setFont(new Font("Times New Roman", Font.BOLD, 23));
-        g.setColor(Color.LIGHT_GRAY);
+        g.setColor(Color.WHITE);
         g.drawString("Hero.x: " + hero.x, 200, 120);
         g.drawString("Hero.y: " + hero.y, 200, 150);
         g.drawString("Hero.action: " + hero.action, 200, 180);
         g.drawString("Background.x: " + background.x, 200, 210);
         g.drawString("Hero.speed: " + hero.speed, 200, 240);
-        g.drawString("Background.speed: " + background.speed, 200, 270);
         g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
         g.setFont(f);
 
         for (Arrow arrow : arrowList) {
             arrow.draw(g);
+        }
+
+        for (Mob mob : mobList) {
+            mob.draw(g);
         }
     }
 

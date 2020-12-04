@@ -6,6 +6,7 @@ import me.lokka.maplestory.util.ImageUtil;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 /**
  * @Description 主角类
@@ -14,67 +15,24 @@ import java.awt.event.KeyEvent;
  */
 public class Hero extends AbstractMapleStoryObject {
 
-    public static Image[] images = new Image[35];
-    static {
-        // right stand
-        for (int i = 0; i < 4; i++) {
-            images[i] = ImageUtil.getKey("hero_right_stand_" + i);
-        }
-        // left stand
-        for (int i = 4; i < 8; i++) {
-            images[i] = ImageUtil.getKey("hero_left_stand_" + (i - 4));
-        }
-        // right walk
-        for (int i = 8; i < 13; i++) {
-            images[i] = ImageUtil.getKey("hero_right_walk_" + (i - 8));
-        }
-        // left walk
-        for (int i = 13; i < 18; i++) {
-            images[i] = ImageUtil.getKey("hero_left_walk_" + (i - 13));
-        }
-        // right prone
-        for (int i = 18; i < 21; i++) {
-            images[i] = ImageUtil.getKey("hero_right_prone_" + (i - 18));
-        }
-        // left prone
-        for (int i = 21; i < 23; i++) {
-            images[i] = ImageUtil.getKey("hero_left_prone_" + (i - 21));
-        }
-        // right jump
-        for (int i = 23; i < 25; i++) {
-            images[i] = ImageUtil.getKey("hero_right_jump_" + (i - 23));
-        }
-        // left jump
-        for (int i = 25; i < 27; i++) {
-            images[i] = ImageUtil.getKey("hero_left_jump_" + (i - 25));
-        }
-        // right shoot
-        for (int i = 27; i < 31; i++) {
-            images[i] = ImageUtil.getKey("hero_right_shoot_" + (i - 27));
-        }
-        // left shoot
-        for (int i = 31; i < 35; i++) {
-            images[i] = ImageUtil.getKey("hero_left_shoot_" + (i - 31));
-        }
-    }
-
-    public Hero(){
+    public Hero() {
         this.speed = Constant.HERO_SPEED;
         this.dir = Direction.RIGHT;
         this.action = Action.STAND;
     }
 
-    public Hero(MapleStoryClient mapleStoryClient, int x, int y) {
+    public Hero(MapleStoryClient mapleStoryClient, List<Image> images, int x, int y) {
         this();
         this.mapleStoryClient = mapleStoryClient;
-        this.width = images[0].getWidth(null);
-        this.height = images[0].getHeight(null);
+        this.imgs = images;
+        this.width = this.imgs.get(0).getWidth(null);
+        this.height = this.imgs.get(0).getHeight(null);
         this.x = x;
         this.y = y;
     }
 
     /**
-     * 初速度
+     * 跳跃 X 轴初速度
      */
     private double v0 = Constant.INIT_JUMP_V0;
     /**
@@ -88,7 +46,8 @@ public class Hero extends AbstractMapleStoryObject {
     /**
      * 单位时间
      */
-    private double t = 0.5;
+    private final double t = 0.5;
+
     /**
      * 跳的方法
      */
@@ -98,11 +57,11 @@ public class Hero extends AbstractMapleStoryObject {
         // 下一次的初速度是上一次的末速度
         v0 = vt;
         y -= v0 * t;
-        if (y >= 700) {
+        if (y >= 565) {
             jump = false;
             v0 = Constant.INIT_JUMP_V0;
             vt = 0.0;
-            y = 700;
+            y = 565;
         }
     }
 
@@ -111,7 +70,7 @@ public class Hero extends AbstractMapleStoryObject {
 
     @Override
     public void move() {
-        if (prone) {
+        if (prone && !jump) {
             action = Action.PRONE;
             return;
         }
@@ -142,10 +101,10 @@ public class Hero extends AbstractMapleStoryObject {
         }
 
         outOfBounds();
-
     }
 
     private int shoot_rate = 0;
+
     /**
      * 射箭的方法
      */
@@ -159,7 +118,7 @@ public class Hero extends AbstractMapleStoryObject {
                 arrow_x += 26;
             }
             // 创建弓箭对象
-            Arrow arrow =  new Arrow(mapleStoryClient, arrow_x, arrow_y, dir);
+            Arrow arrow = new Arrow(mapleStoryClient, ImageUtil.getValue("arrow"), arrow_x, arrow_y, dir);
             // 通过中介者模式访问主类中的容器，并添加进去
             mapleStoryClient.arrowList.add(arrow);
         }
@@ -202,15 +161,20 @@ public class Hero extends AbstractMapleStoryObject {
             case RIGHT:
                 switch (action) {
                     case STAND:
-                        idx = step % 4; break;
+                        idx = step % 4;
+                        break;
                     case WALK:
-                        idx = step % 5 + 8; break;
+                        idx = step % 5 + 8;
+                        break;
                     case PRONE:
-                        idx = step % 2 + 18; break;
+                        idx = step % 2 + 18;
+                        break;
                     case JUMP:
-                        idx = step % 2 + 23; break;
+                        idx = step % 2 + 22;
+                        break;
                     case SHOOT:
-                        idx = step % 4 + 27; break;
+                        idx = step % 4 + 26;
+                        break;
                     default:
                         break;
                 }
@@ -218,15 +182,20 @@ public class Hero extends AbstractMapleStoryObject {
             case LEFT:
                 switch (action) {
                     case STAND:
-                        idx = step % 4 + 4; break;
+                        idx = step % 4 + 4;
+                        break;
                     case WALK:
-                        idx = step % 5 + 13; break;
+                        idx = step % 5 + 13;
+                        break;
                     case PRONE:
-                        idx = step % 2 + 21; break;
+                        idx = step % 2 + 20;
+                        break;
                     case JUMP:
-                        idx = step % 2 + 25; break;
+                        idx = step % 2 + 24;
+                        break;
                     case SHOOT:
-                        idx = step % 4 + 31; break;
+                        idx = step % 4 + 30;
+                        break;
                     default:
                         break;
                 }
@@ -234,12 +203,13 @@ public class Hero extends AbstractMapleStoryObject {
             default:
                 break;
         }
+
         if (prone) {
-            g.drawImage(images[idx], x, y + 26, null);
+            g.drawImage(imgs.get(idx), x, y + 26, null);
         } else if (jump) {
-            g.drawImage(images[idx], x, y, null);
+            g.drawImage(imgs.get(idx), x, y, null);
         } else {
-            g.drawImage(images[idx], x, y, null);
+            g.drawImage(imgs.get(idx), x, y, null);
         }
     }
 

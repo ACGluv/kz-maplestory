@@ -31,13 +31,13 @@ public class Constant {
     /**
      * 窗口的宽度
      */
-    public static final int GAME_WIDTH = Integer.parseInt(props.getProperty("GAME_WIDTH"));
-    //public static final int GAME_WIDTH = screenSize.width;
+    //public static final int GAME_WIDTH = Integer.parseInt(props.getProperty("GAME_WIDTH"));
+    public static final int GAME_WIDTH = screenSize.width;
     /**
      * 窗口的高度
      */
-    public static final int GAME_HEIGHT = Integer.parseInt(props.getProperty("GAME_HEIGHT"));
-    //public static final int GAME_HEIGHT = screenSize.height;
+    //public static final int GAME_HEIGHT = Integer.parseInt(props.getProperty("GAME_HEIGHT"));
+    public static final int GAME_HEIGHT = screenSize.height;
     /**
      * 项目标题
      */
