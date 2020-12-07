@@ -16,9 +16,9 @@ public class Background extends AbstractMapleStoryObject{
         this.speed = Constant.HERO_SPEED;
     }
 
-    public Background(MapleStoryClient mapleStoryClient, Image img) {
+    public Background(MapleStoryClient msc, Image img) {
         this();
-        this.mapleStoryClient = mapleStoryClient;
+        this.msc = msc;
         this.img = img;
         this.width = img.getWidth(null);
         this.height = img.getHeight(null);
@@ -30,28 +30,28 @@ public class Background extends AbstractMapleStoryObject{
 
     @Override
     public void move() {
-        switch (mapleStoryClient.hero.dir) {
+        switch (msc.hero.dir) {
             case RIGHT:
-                if (mapleStoryClient.hero.moving
-                        && mapleStoryClient.hero.x > Constant.GAME_WIDTH / 2 - mapleStoryClient.hero.width / 2
+                if (msc.hero.moving
+                        && msc.hero.x > Constant.GAME_WIDTH / 2 - msc.hero.width / 2
                         && x + width > Constant.GAME_WIDTH
                 ) {
                     x -= speed;
-                    mapleStoryClient.hero.speed = 0;
+                    msc.hero.speed = 0;
                 } else {
-                    mapleStoryClient.hero.speed = Constant.HERO_SPEED;
+                    msc.hero.speed = Constant.HERO_SPEED;
                 }
                 break;
 
             case LEFT:
-                if (mapleStoryClient.hero.moving
-                        && mapleStoryClient.hero.x < Constant.GAME_WIDTH / 2 - mapleStoryClient.hero.width / 2
+                if (msc.hero.moving
+                        && msc.hero.x < Constant.GAME_WIDTH / 2 - msc.hero.width / 2
                         && x < 0
                 ) {
                     x += speed;
-                    mapleStoryClient.hero.speed = 0;
+                    msc.hero.speed = 0;
                 } else {
-                    mapleStoryClient.hero.speed = Constant.HERO_SPEED;
+                    msc.hero.speed = Constant.HERO_SPEED;
                 }
                 break;
         }
@@ -63,4 +63,8 @@ public class Background extends AbstractMapleStoryObject{
         g.drawImage(img, x, y, null);
     }
 
+    @Override
+    public Rectangle getRectangle() {
+        return null;
+    }
 }

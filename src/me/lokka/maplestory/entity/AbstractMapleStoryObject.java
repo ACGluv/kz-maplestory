@@ -38,7 +38,7 @@ public abstract class AbstractMapleStoryObject implements Moveable, Drawable {
     /**
      * 中介者设计模式
      */
-    public MapleStoryClient mapleStoryClient;
+    public MapleStoryClient msc;
 
     /**
      * 对象的速度
@@ -75,4 +75,11 @@ public abstract class AbstractMapleStoryObject implements Moveable, Drawable {
      * 经验值
      */
     public int EXP;
+
+    /**
+     * 表示生死
+     */
+    public boolean live = true;
+
+    public abstract Rectangle getRectangle();
 }

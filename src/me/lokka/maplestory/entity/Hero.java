@@ -21,9 +21,9 @@ public class Hero extends AbstractMapleStoryObject {
         this.action = Action.STAND;
     }
 
-    public Hero(MapleStoryClient mapleStoryClient, List<Image> images, int x, int y) {
+    public Hero(MapleStoryClient msc, List<Image> images, int x, int y) {
         this();
-        this.mapleStoryClient = mapleStoryClient;
+        this.msc = msc;
         this.imgs = images;
         this.width = this.imgs.get(0).getWidth(null);
         this.height = this.imgs.get(0).getHeight(null);
@@ -57,11 +57,11 @@ public class Hero extends AbstractMapleStoryObject {
         // 下一次的初速度是上一次的末速度
         v0 = vt;
         y -= v0 * t;
-        if (y >= 565) {
+        if (y >= 526) {
             jump = false;
             v0 = Constant.INIT_JUMP_V0;
             vt = 0.0;
-            y = 565;
+            y = 525;
         }
     }
 
@@ -118,9 +118,9 @@ public class Hero extends AbstractMapleStoryObject {
                 arrow_x += 26;
             }
             // 创建弓箭对象
-            Arrow arrow = new Arrow(mapleStoryClient, ImageUtil.getValue("arrow"), arrow_x, arrow_y, dir);
+            Arrow arrow = new Arrow(msc, ImageUtil.getValue("arrow"), arrow_x, arrow_y, dir);
             // 通过中介者模式访问主类中的容器，并添加进去
-            mapleStoryClient.arrowList.add(arrow);
+            msc.arrowList.add(arrow);
         }
     }
 
@@ -261,5 +261,10 @@ public class Hero extends AbstractMapleStoryObject {
             default:
                 break;
         }
+    }
+
+    @Override
+    public Rectangle getRectangle() {
+        return new Rectangle(x, y, width, height);
     }
 }

@@ -36,11 +36,11 @@ public class MapleStoryClient extends MapleStoryFrame {
     /**
      * 背景图片
      */
-    public Background background = new Background(this, ImageUtil.getValue("background").get(0));
+    public Background bg = new Background(this, ImageUtil.getValue("background").get(0));
     /**
      * 英雄
      */
-    public Hero hero = new Hero(this, ImageUtil.getValue("redhair"), 300, 565);
+    public Hero hero = new Hero(this, ImageUtil.getValue("redhair"), 300, 525);
     /**
      * 箭矢的容器
      */
@@ -55,7 +55,7 @@ public class MapleStoryClient extends MapleStoryFrame {
      */
     {
         for (int i = 0; i < 5; i++) {
-            Mob mob = new Mob(this, ImageUtil.getValue("dechick"), i * 100 + 400, 565);
+            Mob mob = new Mob(this, ImageUtil.getValue("dechick"), i * 100 + 400, 1524);
             mobList.add(mob);
         }
     }
@@ -64,7 +64,7 @@ public class MapleStoryClient extends MapleStoryFrame {
     public void paint(Graphics g) {
         Image canvas = ImageUtil.getValue("background").get(1);
         g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
-        background.draw(g);
+        bg.draw(g);
         hero.draw(g);
         Font f = g.getFont();
         g.setFont(new Font("Times New Roman", Font.BOLD, 23));
@@ -72,17 +72,18 @@ public class MapleStoryClient extends MapleStoryFrame {
         g.drawString("Hero.x: " + hero.x, 200, 120);
         g.drawString("Hero.y: " + hero.y, 200, 150);
         g.drawString("Hero.action: " + hero.action, 200, 180);
-        g.drawString("Background.x: " + background.x, 200, 210);
+        g.drawString("Background.x: " + bg.x, 200, 210);
         g.drawString("Hero.speed: " + hero.speed, 200, 240);
         g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
         g.setFont(f);
 
-        for (Arrow arrow : arrowList) {
-            arrow.draw(g);
-        }
-
         for (Mob mob : mobList) {
             mob.draw(g);
+        }
+
+        for (Arrow arrow : arrowList) {
+            arrow.draw(g);
+            arrow.hit(mobList);
         }
     }
 

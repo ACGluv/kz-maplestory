@@ -20,18 +20,18 @@ public class Mob extends AbstractMapleStoryObject {
         this.y = 700;
     }
 
-    public Mob(MapleStoryClient mapleStoryClient, List<Image> imgs, int x, int y) {
+    public Mob(MapleStoryClient msc, List<Image> imgs, int x, int y) {
         this(imgs);
-        this.mapleStoryClient = mapleStoryClient;
+        this.msc = msc;
         this.x = x;
         this.y = y;
         this.dir = Direction.LEFT;
         this.action = Action.STAND;
     }
 
-    public Mob(MapleStoryClient mapleStoryClient, List<Image> imgs, int x, int y, String name, int level, int HP, int MP, int EXP, int speed) {
-        this(mapleStoryClient, imgs, x, y);
-        this.mapleStoryClient = mapleStoryClient;
+    public Mob(MapleStoryClient msc, List<Image> imgs, int x, int y, String name, int level, int HP, int MP, int EXP, int speed) {
+        this(msc, imgs, x, y);
+        this.msc = msc;
         this.name = name;
         this.level = level;
         this.HP = HP;
@@ -40,17 +40,98 @@ public class Mob extends AbstractMapleStoryObject {
         this.speed = speed;
     }
 
-    public int cnt, step = -1;
+    private int cnt, step = -1, die_x_right, die_y_down;
+    private void calcStep() {
+        // 图片切换速度
+        switch (action) {
+            case STAND:
+                if (cnt++ % 3 == 0) step++;
+                break;
+            case DIE:
+                if (cnt++ % 2 == 0) step++;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private boolean flag = false;
     @Override
     public void move() {
-        if (cnt++ % 3 == 0) step++;
-        int idx = step % imgs.size();
-        img = imgs.get(idx);
+        if (!live) {
+            if (!flag) {
+                cnt = 0;
+                step = -1;
+                die_x_right = x + width;
+                die_y_down = y + height;
+                flag = true;
+            }
+            action = Action.DIE;
+            return;
+        }
     }
 
     @Override
     public void draw(Graphics g) {
         move();
-        g.drawImage(img, mapleStoryClient.background.x + x, y, null);
+        calcStep();
+        int idx = 0; // 图片序号
+        switch (dir) {
+            case RIGHT:
+                break;
+            case LEFT:
+                switch (action) {
+                    case STAND:
+                        idx = step % 6;
+                        break;
+                    case DIE:
+                        idx = step % 12 + 13;
+                        if (idx == 24) {
+                            msc.mobList.remove(this);
+                            return;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+        img = imgs.get(idx);
+        if (!live) {
+            die_x_right = Math.max(die_x_right, x + img.getWidth(null));
+
+            g.drawImage(
+                    img,
+                    msc.bg.x + die_x_right - img.getWidth(null),
+                    msc.bg.y + die_y_down - img.getHeight(null),
+                    null
+            );
+            g.drawRect(
+                    msc.bg.x + die_x_right - img.getWidth(null),
+                    msc.bg.y + die_y_down - img.getHeight(null),
+                    img.getWidth(null),
+                    img.getHeight(null)
+            );
+        } else {
+            g.drawImage(
+                    img,
+                    msc.bg.x + x,
+                    msc.bg.y + y,
+                    null
+            );
+            g.drawRect(
+                    msc.bg.x + x,
+                    msc.bg.y + y,
+                    img.getWidth(null),
+                    img.getHeight(null)
+            );
+        }
+    }
+
+    @Override
+    public Rectangle getRectangle() {
+        return new Rectangle(msc.bg.x + x, msc.bg.y + y, width, height);
     }
 }

@@ -25,7 +25,7 @@ public class ImageUtil {
 
         // background
         List<Image> background = new CopyOnWriteArrayList<>();
-        background.add(MapleStoryUtil.getImage("background/origin"));
+        background.add(MapleStoryUtil.getImage("background/scene"));
         background.add(MapleStoryUtil.getImage("background/background"));
         images.put("background", background);
 
@@ -93,8 +93,20 @@ public class ImageUtil {
         /* Dechick Start */
         List<Image> dechick = new CopyOnWriteArrayList<>();
 
-        for (int i = 0; i < 6; i++) { // de chick left
-            dechick.add(MapleStoryUtil.getImage("mob/mob1/left/dechick_" + i));
+        // dechick stand left
+        for (int i = 0; i < 6; i++) {
+            dechick.add(MapleStoryUtil.getImage("mob/dechick/left/stand_" + i));
+        }
+        // dechick move left
+        for (int i = 0; i < 6; i++) {
+            dechick.add(MapleStoryUtil.getImage("mob/dechick/left/move_" + i));
+        }
+        // dechick hit left
+        dechick.add(MapleStoryUtil.getImage("mob/dechick/left/hit1_0"));
+
+        // dechick die left
+        for (int i = 0; i < 11; i++) {
+            dechick.add(MapleStoryUtil.getImage("mob/dechick/left/die1_" + i));
         }
 
         images.put("dechick", dechick);

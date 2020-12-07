@@ -21,9 +21,9 @@ public class Arrow extends AbstractMapleStoryObject {
         this.speed = Constant.ARROW_SPEED;
     }
 
-    public Arrow(MapleStoryClient mapleStoryClient, List<Image> images, int x, int y, Direction dir) {
+    public Arrow(MapleStoryClient msc, List<Image> images, int x, int y, Direction dir) {
         this();
-        this.mapleStoryClient = mapleStoryClient;
+        this.msc = msc;
         this.imgs = images;
         this.x = x;
         this.y = y;
@@ -50,6 +50,10 @@ public class Arrow extends AbstractMapleStoryObject {
 
     @Override
     public void draw(Graphics g) {
+        if (!live) {
+            msc.arrowList.remove(this);
+            return;
+        }
         move();
         switch (dir) {
             case LEFT:
@@ -62,6 +66,7 @@ public class Arrow extends AbstractMapleStoryObject {
                 break;
         }
         g.drawImage(img, x, y, null);
+        g.drawRect(x, y, width, height);
     }
 
     /**
@@ -69,7 +74,41 @@ public class Arrow extends AbstractMapleStoryObject {
      */
     private void outOfBounds() {
         if (x < -500 || x > Constant.GAME_WIDTH + 500) {
-            mapleStoryClient.arrowList.remove(this);
+            this.live = false;;
         }
+    }
+
+    @Override
+    public Rectangle getRectangle() {
+        return new Rectangle(x, y, width, height);
+    }
+
+    /**
+     * 箭矢射中怪物
+     * @param mob 被射击的怪物
+     * @return 是否打击成功 (相交
+     */
+    public boolean hit(Mob mob) {
+        if (this.live && mob.live && this.getRectangle().intersects(mob.getRectangle())) {
+            this.live = false;
+            mob.live = false;
+            System.out.println("香蕉了...");
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 相交方法的重载，只做遍历
+     * @param mobList 怪物容器
+     * @return 是否与容器中怪物相交
+     */
+    public boolean hit(List<Mob> mobList) {
+        for (Mob mob : mobList) {
+            if (this.hit(mob)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
