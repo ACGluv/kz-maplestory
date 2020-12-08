@@ -50,6 +50,8 @@ public class MapleStoryClient extends MapleStoryFrame {
      */
     public List<Mob> mobList = new CopyOnWriteArrayList<>();
 
+    public List<Item> itemList = new CopyOnWriteArrayList<>();
+
     /**
      * 初始化 Mobs 容器
      */
@@ -65,17 +67,17 @@ public class MapleStoryClient extends MapleStoryFrame {
         Image canvas = ImageUtil.getValue("background").get(1);
         g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
         bg.draw(g);
-        hero.draw(g);
+
         Font f = g.getFont();
         g.setFont(new Font("Times New Roman", Font.BOLD, 23));
         g.setColor(Color.WHITE);
-        g.drawString("Hero.x: " + hero.x, 200, 120);
-        g.drawString("Hero.y: " + hero.y, 200, 150);
-        g.drawString("Hero.action: " + hero.action, 200, 180);
-        g.drawString("Background.x: " + bg.x, 200, 210);
-        g.drawString("Hero.speed: " + hero.speed, 200, 240);
+//        g.drawString("Hero.x: " + hero.x, 200, 120);
+//        g.drawString("Hero.y: " + hero.y, 200, 150);
+//        g.drawString("Hero.action: " + hero.action, 200, 180);
+//        g.drawString("Background.x: " + bg.x, 200, 210);
+        g.drawString("Item.size: " + itemList.size(), 200, 240);
         g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
-        g.setFont(f);
+//        g.setFont(f);
 
         for (Mob mob : mobList) {
             mob.draw(g);
@@ -85,6 +87,12 @@ public class MapleStoryClient extends MapleStoryFrame {
             arrow.draw(g);
             arrow.hit(mobList);
         }
+
+        for (Item item : itemList) {
+            item.draw(g);
+        }
+
+        hero.draw(g);
     }
 
     public static void main(String[] args) {

@@ -92,7 +92,8 @@ public class Arrow extends AbstractMapleStoryObject {
         if (this.live && mob.live && this.getRectangle().intersects(mob.getRectangle())) {
             this.live = false;
             mob.live = false;
-            System.out.println("香蕉了...");
+            Item item = new Item(msc, mob.x + mob.width / 3, mob.y);
+            msc.itemList.add(item);
             return true;
         }
         return false;

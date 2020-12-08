@@ -62,4 +62,6 @@ public class Constant {
      * 弓箭的速度
      */
     public static final int ARROW_SPEED = Integer.parseInt(props.getProperty("ARROW_SPEED"));
+
+    public static final int TIME_OUT = Integer.parseInt(props.getProperty("TIME_OUT"));
 }

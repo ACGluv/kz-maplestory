@@ -25,6 +25,7 @@ public class Mob extends AbstractMapleStoryObject {
         this.msc = msc;
         this.x = x;
         this.y = y;
+        this.origin_y_down = this.y + this.height;
         this.dir = Direction.LEFT;
         this.action = Action.STAND;
     }
@@ -40,7 +41,8 @@ public class Mob extends AbstractMapleStoryObject {
         this.speed = speed;
     }
 
-    private int cnt, step = -1, die_x_right, die_y_down;
+    private int cnt, step = -1;
+    public int die_x_right, origin_y_down;
     private void calcStep() {
         // 图片切换速度
         switch (action) {
@@ -63,7 +65,6 @@ public class Mob extends AbstractMapleStoryObject {
                 cnt = 0;
                 step = -1;
                 die_x_right = x + width;
-                die_y_down = y + height;
                 flag = true;
             }
             action = Action.DIE;
@@ -105,12 +106,12 @@ public class Mob extends AbstractMapleStoryObject {
             g.drawImage(
                     img,
                     msc.bg.x + die_x_right - img.getWidth(null),
-                    msc.bg.y + die_y_down - img.getHeight(null),
+                    msc.bg.y + origin_y_down - img.getHeight(null),
                     null
             );
             g.drawRect(
                     msc.bg.x + die_x_right - img.getWidth(null),
-                    msc.bg.y + die_y_down - img.getHeight(null),
+                    msc.bg.y + origin_y_down - img.getHeight(null),
                     img.getWidth(null),
                     img.getHeight(null)
             );
@@ -118,12 +119,12 @@ public class Mob extends AbstractMapleStoryObject {
             g.drawImage(
                     img,
                     msc.bg.x + x,
-                    msc.bg.y + y,
+                    msc.bg.y + origin_y_down - img.getHeight(null),
                     null
             );
             g.drawRect(
                     msc.bg.x + x,
-                    msc.bg.y + y,
+                    msc.bg.y + origin_y_down - img.getHeight(null),
                     img.getWidth(null),
                     img.getHeight(null)
             );

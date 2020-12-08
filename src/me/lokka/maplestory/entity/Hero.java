@@ -57,7 +57,7 @@ public class Hero extends AbstractMapleStoryObject {
         // 下一次的初速度是上一次的末速度
         v0 = vt;
         y -= v0 * t;
-        if (y >= 526) {
+        if (y >= 525) {
             jump = false;
             v0 = Constant.INIT_JUMP_V0;
             vt = 0.0;
@@ -71,6 +71,7 @@ public class Hero extends AbstractMapleStoryObject {
     @Override
     public void move() {
         if (prone && !jump) {
+            moving = false;
             action = Action.PRONE;
             return;
         }

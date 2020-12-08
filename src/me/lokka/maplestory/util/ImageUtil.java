@@ -112,6 +112,15 @@ public class ImageUtil {
         images.put("dechick", dechick);
         /* Dechick End */
 
+
+        /* Item Start */
+        List<Image> blood = new CopyOnWriteArrayList<>();
+        blood.add(MapleStoryUtil.getImage("item/HP_50"));
+        images.put("blood", blood);
+
+        List<Image> mana = new CopyOnWriteArrayList<>();
+        /* Item End */
+
     }
 
     /**
