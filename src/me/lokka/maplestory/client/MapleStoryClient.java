@@ -62,11 +62,27 @@ public class MapleStoryClient extends MapleStoryFrame {
         }
     }
 
+    public List<Ground> groundList = new CopyOnWriteArrayList<>();
+    {
+        Ground ground_1 = new Ground(this, ImageUtil.getValue("ground").get(0), 0, 1598);
+        groundList.add(ground_1);
+        Ground ground_2 = new Ground(this, ImageUtil.getValue("ground").get(1), 0, 1298);
+        groundList.add(ground_2);
+        Ground ground_2_right = new Ground(this, ImageUtil.getValue("ground").get(2), 2440, 946);
+        groundList.add(ground_2_right);
+        Ground ground_3 = new Ground(this, ImageUtil.getValue("ground").get(3), 824, 985);
+        groundList.add(ground_3);
+    }
+
     @Override
     public void paint(Graphics g) {
         Image canvas = ImageUtil.getValue("background").get(1);
         g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
         bg.draw(g);
+
+        for (Ground ground : groundList) {
+            ground.draw(g);
+        }
 
         Font f = g.getFont();
         g.setFont(new Font("Times New Roman", Font.BOLD, 23));
@@ -75,7 +91,7 @@ public class MapleStoryClient extends MapleStoryFrame {
 //        g.drawString("Hero.y: " + hero.y, 200, 150);
 //        g.drawString("Hero.action: " + hero.action, 200, 180);
 //        g.drawString("Background.x: " + bg.x, 200, 210);
-        g.drawString("Item.size: " + itemList.size(), 200, 240);
+//        g.drawString("Item.size: " + itemList.size(), 200, 240);
         g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
 //        g.setFont(f);
 

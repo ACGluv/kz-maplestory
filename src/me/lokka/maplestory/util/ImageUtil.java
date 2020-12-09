@@ -30,6 +30,16 @@ public class ImageUtil {
         images.put("background", background);
 
 
+        /* Ground Start */
+        List<Image> ground = new CopyOnWriteArrayList<>();
+        ground.add(MapleStoryUtil.getImage("ground/ground_1"));
+        ground.add(MapleStoryUtil.getImage("ground/ground_2"));
+        ground.add(MapleStoryUtil.getImage("ground/ground_2_right"));
+        ground.add(MapleStoryUtil.getImage("ground/ground_3"));
+        images.put("ground", ground);
+        /* Ground End */
+
+
         /* RedHair Start */
         List<Image> redHair = new CopyOnWriteArrayList<>();
 
