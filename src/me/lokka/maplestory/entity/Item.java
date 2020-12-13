@@ -17,11 +17,19 @@ public class Item extends AbstractMapleStoryObject {
 
     }
 
-    public Item(MapleStoryClient msc, int x, int y) {
+    public Item(MapleStoryClient msc, int x, int y, int type) {
         this.msc = msc;
         this.x = x;
         this.y = y;
-        this.img = ImageUtil.getValue("blood").get(0);
+        switch (type) {
+            case 0 :
+                this.img = ImageUtil.getValue("blood").get(0);
+                break;
+            case 1 :
+                this.img = ImageUtil.getValue("mana").get(0);
+                break;
+            default: break;
+        }
         this.width = img.getWidth(null);
         this.height = img.getHeight(null);
     }
@@ -65,11 +73,11 @@ public class Item extends AbstractMapleStoryObject {
         // 下一次的初速度是上一次的末速度
         v0 = vt;
         y -= v0 * t;
-        if (y >= 1565) {
+        if (y >= 1676) {
             jump = false;
             v0 = Constant.INIT_JUMP_V0;
             vt = 0.0;
-            y = 1565;
+            y = 1676;
         }
     }
 

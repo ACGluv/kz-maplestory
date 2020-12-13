@@ -37,10 +37,55 @@ public class MapleStoryClient extends MapleStoryFrame {
      * 背景图片
      */
     public Background bg = new Background(this, ImageUtil.getValue("background").get(0));
+
+//    /**
+//     * 背景元素容器
+//     */
+//    public List<Element> bgElementList = new CopyOnWriteArrayList<>();
+//    {
+//        Element bg_lyr_1 = new Element(this, ImageUtil.getValue("bg_element").get(0), -500, -600, 2, 0, false);
+//        bgElementList.add(bg_lyr_1);
+//        Element bg_lyr_2 = new Element(this, ImageUtil.getValue("bg_element").get(1), -500, -600, 3, 0, false);
+//        bgElementList.add(bg_lyr_2);
+//        Element bg_lyr_3 = new Element(this, ImageUtil.getValue("bg_element").get(2), -500, -600, 4, 0, false);
+//        bgElementList.add(bg_lyr_3);
+//    }
+
+    /**
+     * 初始化 Ground 容器
+     */
+    public List<Ground> groundList = new CopyOnWriteArrayList<>();
+    {
+        Ground ground_1 = new Ground(this, ImageUtil.getValue("ground").get(0), 0, 1698);
+        groundList.add(ground_1);
+
+        int xx = 824, yy = 1650;
+        for (int i = 0; i < 13; i++) {
+            Ground ground_tmp = new Ground(this, xx + i * 200, yy - i * 50, 200, 81);
+            groundList.add(ground_tmp);
+        }
+
+        xx = 1524;
+        yy = 1400;
+        for (int i = 0; i < 6; i++) {
+            Ground ground_tmp = new Ground(this, xx - i * 200, yy - i * 50, 200, 81);
+            groundList.add(ground_tmp);
+        }
+
+        Ground ground_2 = new Ground(this, ImageUtil.getValue("ground").get(1), 0, 1398);
+        groundList.add(ground_2);
+
+        Ground ground_3 = new Ground(this, ImageUtil.getValue("ground").get(3), 824, 1085);
+        groundList.add(ground_3);
+
+        Ground ground_2_right = new Ground(this, ImageUtil.getValue("ground").get(2), 2440, 1046);
+        groundList.add(ground_2_right);
+    }
+
     /**
      * 英雄
      */
-    public Hero hero = new Hero(this, ImageUtil.getValue("redhair"), 300, 525);
+    public Hero hero = new Hero(this, ImageUtil.getValue("redhair"), 300, 725);
     /**
      * 箭矢的容器
      */
@@ -53,31 +98,25 @@ public class MapleStoryClient extends MapleStoryFrame {
     public List<Item> itemList = new CopyOnWriteArrayList<>();
 
     /**
-     * 初始化 Mobs 容器
+     * 初始化 Mob 容器
      */
     {
         for (int i = 0; i < 5; i++) {
-            Mob mob = new Mob(this, ImageUtil.getValue("dechick"), i * 100 + 400, 1524);
+            Mob mob = new Mob(this, ImageUtil.getValue("dechick"), i * 100 + 400, 1624);
             mobList.add(mob);
         }
-    }
-
-    public List<Ground> groundList = new CopyOnWriteArrayList<>();
-    {
-        Ground ground_1 = new Ground(this, ImageUtil.getValue("ground").get(0), 0, 1598);
-        groundList.add(ground_1);
-        Ground ground_2 = new Ground(this, ImageUtil.getValue("ground").get(1), 0, 1298);
-        groundList.add(ground_2);
-        Ground ground_2_right = new Ground(this, ImageUtil.getValue("ground").get(2), 2440, 946);
-        groundList.add(ground_2_right);
-        Ground ground_3 = new Ground(this, ImageUtil.getValue("ground").get(3), 824, 985);
-        groundList.add(ground_3);
     }
 
     @Override
     public void paint(Graphics g) {
         Image canvas = ImageUtil.getValue("background").get(1);
         g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
+
+//        for (int i = bgElementList.size() - 1; i >= 0; i--) {
+//            Element element = bgElementList.get(i);
+//            element.draw(g);
+//        }
+
         bg.draw(g);
 
         for (Ground ground : groundList) {
@@ -87,13 +126,16 @@ public class MapleStoryClient extends MapleStoryFrame {
         Font f = g.getFont();
         g.setFont(new Font("Times New Roman", Font.BOLD, 23));
         g.setColor(Color.WHITE);
-//        g.drawString("Hero.x: " + hero.x, 200, 120);
-//        g.drawString("Hero.y: " + hero.y, 200, 150);
-//        g.drawString("Hero.action: " + hero.action, 200, 180);
-//        g.drawString("Background.x: " + bg.x, 200, 210);
-//        g.drawString("Item.size: " + itemList.size(), 200, 240);
+        g.drawString("Hero.x: " + hero.x, 200, 120);
+        g.drawString("Hero.y: " + hero.y, 200, 150);
+        g.drawString("Hero.action: " + hero.action, 200, 180);
+        g.drawString("Hero.jump: " + hero.jump, 200, 210);
+        g.drawString("Hero.drop: " + hero.drop, 200, 240);
+        g.drawString("Ground1.x: " + (bg.x + groundList.get(0).x), 200, 270);
+        g.drawString("Ground1.y: " + (bg.y + groundList.get(0).y), 200, 300);
         g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
-//        g.setFont(f);
+        g.drawLine(0, Constant.GAME_HEIGHT / 2, Constant.GAME_WIDTH, Constant.GAME_HEIGHT / 2);
+        g.setFont(f);
 
         for (Mob mob : mobList) {
             mob.draw(g);

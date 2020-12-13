@@ -6,5 +6,5 @@ package me.lokka.maplestory.entity;
  * @Date: 2020/12/1 10:12 AM
  */
 public enum Direction {
-    RIGHT, LEFT;
+    RIGHT, LEFT, UP, DOWN, HOLD;
 }

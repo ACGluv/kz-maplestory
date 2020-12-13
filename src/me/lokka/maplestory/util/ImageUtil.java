@@ -29,6 +29,14 @@ public class ImageUtil {
         background.add(MapleStoryUtil.getImage("background/background"));
         images.put("background", background);
 
+        /* background element */
+//        List<Image> backgroundElement = new CopyOnWriteArrayList<>();
+//        for (int i = 1; i < 4; i++) {
+//            backgroundElement.add(MapleStoryUtil.getImage("background/bg_layer_" + i));
+//        }
+//        images.put("bg_element", backgroundElement);
+        /* background element */
+
 
         /* Ground Start */
         List<Image> ground = new CopyOnWriteArrayList<>();
@@ -129,6 +137,8 @@ public class ImageUtil {
         images.put("blood", blood);
 
         List<Image> mana = new CopyOnWriteArrayList<>();
+        mana.add(MapleStoryUtil.getImage("item/MP_50"));
+        images.put("mana", mana);
         /* Item End */
 
     }

@@ -55,12 +55,26 @@ public class Background extends AbstractMapleStoryObject{
                 }
                 break;
         }
+//        switch (msc.hero.verticalDir) {
+//            case UP:
+//                if (msc.hero.moving && msc.hero.y > Constant.GAME_HEIGHT / 2 - msc.hero.height / 2) {
+//                    y += msc.hero.deltaHeight;
+//                    msc.hero.y -= msc.hero.deltaHeight;
+//                }
+//                break;
+//            case DOWN:
+//                if (msc.hero.moving && msc.hero.y < Constant.GAME_HEIGHT / 2 - msc.hero.height / 2) {
+//                    y -= msc.hero.deltaHeight;
+//                    msc.hero.y += msc.hero.deltaHeight;
+//                }
+//                break;
+//        }
     }
 
     @Override
     public void draw(Graphics g) {
         move();
-        g.drawImage(img, x, y, null);
+        g.drawImage(img, x, y + 100, null);
     }
 
     @Override

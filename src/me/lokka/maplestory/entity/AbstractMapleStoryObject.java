@@ -46,9 +46,14 @@ public abstract class AbstractMapleStoryObject implements Moveable, Drawable {
     public int speed;
 
     /**
-     * 表示方向的枚举类型
+     * 表示左右方向的枚举类型
      */
     public Direction dir;
+
+    /**
+     * 表示竖直方向的枚举类型
+     */
+    public Direction verticalDir;
 
     /**
      * 表示动作的枚举类型

@@ -18,6 +18,7 @@ public class Hero extends AbstractMapleStoryObject {
     public Hero() {
         this.speed = Constant.HERO_SPEED;
         this.dir = Direction.RIGHT;
+        this.verticalDir = Direction.HOLD;
         this.action = Action.STAND;
     }
 
@@ -28,17 +29,17 @@ public class Hero extends AbstractMapleStoryObject {
         this.width = this.imgs.get(0).getWidth(null);
         this.height = this.imgs.get(0).getHeight(null);
         this.x = x;
-        this.y = y;
+        this.y = y - 100;
     }
 
     /**
      * 跳跃 X 轴初速度
      */
-    private double v0 = Constant.INIT_JUMP_V0;
+    public double v0 = Constant.INIT_JUMP_V0;
     /**
      * 末速度
      */
-    private double vt = 0.0;
+    public double vt = 0.0;
     /**
      * 重力加速度
      */
@@ -47,21 +48,67 @@ public class Hero extends AbstractMapleStoryObject {
      * 单位时间
      */
     private final double t = 0.5;
+    /**
+     * 高度变化量
+     */
+    public double deltaHeight;
 
     /**
-     * 跳的方法
+     * 表示自由落体的 Boolean 变量
      */
-    private void jump() {
-        // 竖直上抛公式 v_t = v_0 - g * t
-        vt = v0 - g * t;
-        // 下一次的初速度是上一次的末速度
+    public boolean drop = true;
+
+    /**
+     * 竖直上抛运动
+     * @param groundList msc管家中的 List<Ground> 容器
+     */
+    public void jump(List<Ground> groundList) {
+        if (!drop) {
+            vt = v0 - g * t;
+            v0 = vt;
+            deltaHeight = v0 * t;
+            y -= deltaHeight;
+            // 判断停止竖直上抛
+            if (vt <= 0) {
+                // 开始自由落体
+                drop = true;
+                v0 = 0;
+                verticalDir = Direction.DOWN;
+                jumpDown(groundList);
+            }
+        } else {
+            jumpDown(groundList);
+        }
+    }
+
+    /**
+     * 自由落体
+     * @param groundList msc管家中的 List<Ground> 容器
+     */
+    public void jumpDown(List<Ground> groundList) {
+        vt = v0 + g * t;
         v0 = vt;
-        y -= v0 * t;
-        if (y >= 525) {
-            jump = false;
-            v0 = Constant.INIT_JUMP_V0;
-            vt = 0.0;
-            y = 525;
+        deltaHeight = v0 * t;
+        y += deltaHeight;
+        // 停止自由落体
+        // 与地面相交判断
+        for (Ground ground : groundList) {
+            if (this.getRectangle().intersects(ground.getRectangle())
+                    && y + height - msc.bg.y - ground.y <= v0
+            ) {
+                // 判断 y 值
+                if (y + height >= msc.bg.y + ground.y) {
+                    y = msc.bg.y + ground.y + 6 - height;
+                    jump = false;
+                    drop = false;
+                    v0 = Constant.INIT_JUMP_V0;
+                    vt = 0;
+                    verticalDir = Direction.HOLD;
+                    break;
+                }
+            } else {
+                drop = true;
+            }
         }
     }
 
@@ -97,8 +144,14 @@ public class Hero extends AbstractMapleStoryObject {
         }
 
         if (jump) {
-            jump();
+            // 竖直上抛
+            verticalDir = Direction.UP;
+            jump(msc.groundList);
             action = Action.JUMP;
+        } else {
+            // 自由落体
+            verticalDir = Direction.DOWN;
+            jumpDown(msc.groundList);
         }
 
         outOfBounds();
@@ -205,12 +258,17 @@ public class Hero extends AbstractMapleStoryObject {
                 break;
         }
 
+        img = imgs.get(idx);
+
         if (prone) {
-            g.drawImage(imgs.get(idx), x, y + 26, null);
+            g.drawImage(img, x, y + 26, null);
+            g.drawRect(x, y + 26, img.getWidth(null), img.getHeight(null));
         } else if (jump) {
-            g.drawImage(imgs.get(idx), x, y, null);
+            g.drawImage(img, x, y, null);
+            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
         } else {
-            g.drawImage(imgs.get(idx), x, y, null);
+            g.drawImage(img, x, y, null);
+            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
         }
     }
 

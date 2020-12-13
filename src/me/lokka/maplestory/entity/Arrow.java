@@ -5,6 +5,7 @@ import me.lokka.maplestory.constant.Constant;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @Description 箭矢类
@@ -83,6 +84,8 @@ public class Arrow extends AbstractMapleStoryObject {
         return new Rectangle(x, y, width, height);
     }
 
+    public static Random random = new Random();
+
     /**
      * 箭矢射中怪物
      * @param mob 被射击的怪物
@@ -92,8 +95,13 @@ public class Arrow extends AbstractMapleStoryObject {
         if (this.live && mob.live && this.getRectangle().intersects(mob.getRectangle())) {
             this.live = false;
             mob.live = false;
-            Item item = new Item(msc, mob.x + mob.width / 3, mob.y);
-            msc.itemList.add(item);
+
+            // 几率掉落道具
+            if (random.nextInt(101) > 10) {
+                Item item = new Item(msc, mob.x + mob.width / 3, mob.y, random.nextInt(2));
+                msc.itemList.add(item);
+            }
+
             return true;
         }
         return false;

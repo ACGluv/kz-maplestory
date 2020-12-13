@@ -1,7 +1,6 @@
 package me.lokka.maplestory.entity;
 
 import me.lokka.maplestory.client.MapleStoryClient;
-import me.lokka.maplestory.util.ImageUtil;
 
 import java.awt.*;
 
@@ -25,18 +24,17 @@ public class Ground extends AbstractMapleStoryObject {
         this.height = img.getHeight(null);
     }
 
-    public Ground(MapleStoryClient msc, Image img, int x, int y, int width, int height) {
+    public Ground(MapleStoryClient msc, int x, int y, int width, int height) {
         this.msc = msc;
         this.x = x;
         this.y = y;
-        this.img = img;
         this.width = width;
         this.height = height;
     }
 
     @Override
     public Rectangle getRectangle() {
-        return null;
+        return new Rectangle(msc.bg.x + x, msc.bg.y + y, width, height);
     }
 
 
@@ -47,8 +45,12 @@ public class Ground extends AbstractMapleStoryObject {
     @Override
     public void draw(Graphics g) {
         move();
-        g.drawImage(img, msc.bg.x + x, msc.bg.y + y, null);
         g.setColor(Color.WHITE);
+        if (img != null) {
+            g.drawImage(img, msc.bg.x + x, msc.bg.y + y, null);
+        } else {
+            g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
+        }
         g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
     }
 }
