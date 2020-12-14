@@ -16,7 +16,7 @@ public class Mob extends AbstractMapleStoryObject {
     /**
      * 最大血量
      */
-    public static final int MAX_HP = 100;
+    public static final int MAX_HP = (int) 1e6;
 
     public Mob(List<Image> imgs) {
         this.imgs = imgs;
@@ -127,12 +127,12 @@ public class Mob extends AbstractMapleStoryObject {
                     msc.bg.y + origin_y_down - img.getHeight(null),
                     null
             );
-            g.drawRect(
-                    msc.bg.x + die_x_right - img.getWidth(null),
-                    msc.bg.y + origin_y_down - img.getHeight(null),
-                    img.getWidth(null),
-                    img.getHeight(null)
-            );
+//            g.drawRect(
+//                    msc.bg.x + die_x_right - img.getWidth(null),
+//                    msc.bg.y + origin_y_down - img.getHeight(null),
+//                    img.getWidth(null),
+//                    img.getHeight(null)
+//            );
         } else {
             g.drawImage(
                     img,
@@ -140,12 +140,12 @@ public class Mob extends AbstractMapleStoryObject {
                     msc.bg.y + origin_y_down - img.getHeight(null),
                     null
             );
-            g.drawRect(
-                    msc.bg.x + x,
-                    msc.bg.y + origin_y_down - img.getHeight(null),
-                    img.getWidth(null),
-                    img.getHeight(null)
-            );
+//            g.drawRect(
+//                    msc.bg.x + x,
+//                    msc.bg.y + origin_y_down - img.getHeight(null),
+//                    img.getWidth(null),
+//                    img.getHeight(null)
+//            );
         }
         drawBloodBar(g);
     }

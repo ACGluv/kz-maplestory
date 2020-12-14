@@ -49,8 +49,8 @@ public class Ground extends AbstractMapleStoryObject {
         if (img != null) {
             g.drawImage(img, msc.bg.x + x, msc.bg.y + y, null);
         } else {
-            g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
+            //g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
         }
-        g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
+        //g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
     }
 }

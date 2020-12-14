@@ -23,19 +23,24 @@ public class ImageUtil {
         logo.add(MapleStoryUtil.getImage("icon/logo"));
         images.put("logo", logo);
 
-        // background
+        /* Background Start */
         List<Image> background = new CopyOnWriteArrayList<>();
         background.add(MapleStoryUtil.getImage("background/scene"));
         background.add(MapleStoryUtil.getImage("background/background"));
-        images.put("background", background);
+        background.add(MapleStoryUtil.getImage("background/1410"));
+        background.add(MapleStoryUtil.getImage("background/1500"));
+        background.add(MapleStoryUtil.getImage("background/810"));
+        background.add(MapleStoryUtil.getImage("background/900"));
+        background.add(MapleStoryUtil.getImage("background/1020"));
+        background.add(MapleStoryUtil.getImage("background/510"));
+        background.add(MapleStoryUtil.getImage("background/600"));
+        background.add(MapleStoryUtil.getImage("background/720"));
+        background.add(MapleStoryUtil.getImage("background/300"));
+        background.add(MapleStoryUtil.getImage("background/420"));
+        background.add(MapleStoryUtil.getImage("background/1110"));
 
-        /* background element */
-//        List<Image> backgroundElement = new CopyOnWriteArrayList<>();
-//        for (int i = 1; i < 4; i++) {
-//            backgroundElement.add(MapleStoryUtil.getImage("background/bg_layer_" + i));
-//        }
-//        images.put("bg_element", backgroundElement);
-        /* background element */
+        images.put("background", background);
+        /* Background End */
 
         /* Common Start */
         List<Image> common = new CopyOnWriteArrayList<>();

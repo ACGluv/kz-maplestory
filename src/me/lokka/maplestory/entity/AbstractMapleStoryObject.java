@@ -4,6 +4,7 @@ import me.lokka.maplestory.client.MapleStoryClient;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @Description 项目中所有的实体类都要继承此抽象类
@@ -85,6 +86,16 @@ public abstract class AbstractMapleStoryObject implements Moveable, Drawable {
      * 表示生死
      */
     public boolean live = true;
+
+    /**
+     * 攻击值
+     */
+    public int atk;
+
+    /**
+     * 随机数生成器
+     */
+    public Random random = new Random();
 
     public void draw(Graphics g) {
         move();

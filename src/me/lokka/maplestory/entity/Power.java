@@ -29,7 +29,7 @@ public class Power extends AbstractMapleStoryObject {
     private int cnt = 0;
     @Override
     public void move() {
-        this.y -= 2;
+        this.y -= 3;
         cnt++;
         if (cnt == 15) {
             msc.powerList.remove(this);
@@ -38,13 +38,13 @@ public class Power extends AbstractMapleStoryObject {
 
     @Override
     public void draw(Graphics g) {
-        move();
         int tmp = num, tx = x;
         while(tmp != 0) {
             int idx = tmp % 10;
             g.drawImage(imgs.get(idx), msc.bg.x + tx, msc.bg.y + y, null);
             tmp /= 10;
-            tx -= width - 6;
+            tx -= width - 2;
         }
+        move();
     }
 }

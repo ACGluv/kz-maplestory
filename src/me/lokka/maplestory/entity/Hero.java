@@ -20,6 +20,7 @@ public class Hero extends AbstractMapleStoryObject {
         this.dir = Direction.RIGHT;
         this.verticalDir = Direction.HOLD;
         this.action = Action.STAND;
+        this.atk = 30;
     }
 
     public Hero(MapleStoryClient msc, List<Image> images, int x, int y) {

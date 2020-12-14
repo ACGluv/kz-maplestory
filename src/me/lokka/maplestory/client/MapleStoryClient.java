@@ -34,6 +34,10 @@ public class MapleStoryClient extends MapleStoryFrame {
     }
 
     /**
+     * 英雄
+     */
+    public Hero hero = new Hero(this, ImageUtil.getValue("redhair"), 300, 725);
+    /**
      * 背景图片
      */
     public Background bg = new Background(this, ImageUtil.getValue("background").get(0));
@@ -83,10 +87,6 @@ public class MapleStoryClient extends MapleStoryFrame {
     }
 
     /**
-     * 英雄
-     */
-    public Hero hero = new Hero(this, ImageUtil.getValue("redhair"), 300, 725);
-    /**
      * 箭矢的容器
      */
     public List<Arrow> arrowList = new CopyOnWriteArrayList<>();
@@ -115,12 +115,8 @@ public class MapleStoryClient extends MapleStoryFrame {
     @Override
     public void paint(Graphics g) {
         Image canvas = ImageUtil.getValue("background").get(1);
-        g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
+        //g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
 
-//        for (int i = bgElementList.size() - 1; i >= 0; i--) {
-//            Element element = bgElementList.get(i);
-//            element.draw(g);
-//        }
 
         bg.draw(g);
 
@@ -128,18 +124,20 @@ public class MapleStoryClient extends MapleStoryFrame {
             ground.draw(g);
         }
 
-        Font f = g.getFont();
-        g.setFont(new Font("Times New Roman", Font.BOLD, 23));
-        g.setColor(Color.WHITE);
-        g.drawString("Hero.x: " + hero.x, 200, 120);
-        g.drawString("Hero.y: " + hero.y, 200, 150);
-        g.drawString("Hero.action: " + hero.action, 200, 180);
-        g.drawString("Hero.jump: " + hero.jump, 200, 210);
-        g.drawString("Hero.drop: " + hero.drop, 200, 240);
-        g.drawString("Ground1.x: " + (bg.x + groundList.get(0).x), 200, 270);
-        g.drawString("Ground1.y: " + (bg.y + groundList.get(0).y), 200, 300);
-        g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
-        g.setFont(f);
+//        Font f = g.getFont();
+//        Color c = g.getColor();
+//        g.setFont(new Font("Times New Roman", Font.BOLD, 23));
+//        g.setColor(Color.WHITE);
+//        g.drawString("Hero.x: " + hero.x, 200, 120);
+//        g.drawString("Hero.y: " + hero.y, 200, 150);
+//        g.drawString("Hero.action: " + hero.action, 200, 180);
+//        g.drawString("Hero.jump: " + hero.jump, 200, 210);
+//        g.drawString("Hero.drop: " + hero.drop, 200, 240);
+//        g.drawString("Ground1.x: " + (bg.x + groundList.get(0).x), 200, 270);
+//        g.drawString("Ground1.y: " + (bg.y + groundList.get(0).y), 200, 300);
+//        g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
+//        g.setFont(f);
+//        g.setColor(c);
 
         for (Mob mob : mobList) {
             mob.draw(g);

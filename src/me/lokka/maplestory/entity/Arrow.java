@@ -84,8 +84,6 @@ public class Arrow extends AbstractMapleStoryObject {
         return new Rectangle(x, y, width, height);
     }
 
-    public static Random random = new Random();
-
     /**
      * 箭矢射中怪物
      * @param mob 被射击的怪物
@@ -94,9 +92,9 @@ public class Arrow extends AbstractMapleStoryObject {
     public boolean hit(Mob mob) {
         if (this.live && mob.live && this.getRectangle().intersects(mob.getRectangle())) {
             this.live = false;
-            int atk = random.nextInt(100000001);
+            int atk = random.nextInt(1000000);
             mob.HP -= atk;
-            msc.powerList.add(new Power(msc, mob.x + mob.width, mob.y - 30, atk));
+            msc.powerList.add(new Power(msc, mob.x + mob.width / 2, mob.y - 30, atk));
             if (mob.HP <= 0) {
                 mob.live = false;
                 // 几率掉落道具
