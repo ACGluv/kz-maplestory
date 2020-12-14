@@ -2,6 +2,7 @@ package me.lokka.maplestory.entity;
 
 import me.lokka.maplestory.client.MapleStoryClient;
 import me.lokka.maplestory.constant.Constant;
+import me.lokka.maplestory.util.ImageUtil;
 
 import java.awt.*;
 
@@ -75,10 +76,32 @@ public class Background extends AbstractMapleStoryObject{
     public void draw(Graphics g) {
         move();
         g.drawImage(img, x, y + 100, null);
+//        ele.draw(g);
     }
 
     @Override
     public Rectangle getRectangle() {
         return null;
     }
+
+
+//    Ele ele = new Ele();
+//    class Ele extends AbstractMapleStoryObject {
+//
+//        public Ele() {
+//            this.x = 500;
+//            this.y = 625;
+//            this.img = ImageUtil.getValue("logo").get(0);
+//        }
+//
+//        @Override
+//        public void draw(Graphics g) {
+//            g.drawImage(img, x, y, null);
+//        }
+//
+//        @Override
+//        public void move() {
+//
+//        }
+//    }
 }

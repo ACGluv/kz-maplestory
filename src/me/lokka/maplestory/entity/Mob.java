@@ -1,6 +1,7 @@
 package me.lokka.maplestory.entity;
 
 import me.lokka.maplestory.client.MapleStoryClient;
+import me.lokka.maplestory.util.ImageUtil;
 
 import java.awt.*;
 import java.util.List;
@@ -12,12 +13,18 @@ import java.util.List;
  */
 public class Mob extends AbstractMapleStoryObject {
 
+    /**
+     * 最大血量
+     */
+    public static final int MAX_HP = 100;
+
     public Mob(List<Image> imgs) {
         this.imgs = imgs;
         this.width = imgs.get(0).getWidth(null);
         this.height = imgs.get(0).getHeight(null);
         this.x = 500;
         this.y = 700;
+        this.HP = MAX_HP;
     }
 
     public Mob(MapleStoryClient msc, List<Image> imgs, int x, int y) {
@@ -70,6 +77,17 @@ public class Mob extends AbstractMapleStoryObject {
             action = Action.DIE;
             return;
         }
+    }
+
+    private void drawBloodBar(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.GREEN);
+        Image bloodBlk = ImageUtil.getValue("common").get(0);
+        int bloodBlkWidth = bloodBlk.getWidth(null);
+        for (int i = 0; i < width / bloodBlkWidth * HP / MAX_HP; i++) {
+            g.drawImage(bloodBlk, msc.bg.x + x + i * bloodBlkWidth, msc.bg.y + y - 12 , null);
+        }
+        g.setColor(c);
     }
 
     @Override
@@ -129,6 +147,7 @@ public class Mob extends AbstractMapleStoryObject {
                     img.getHeight(null)
             );
         }
+        drawBloodBar(g);
     }
 
     @Override

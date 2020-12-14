@@ -37,6 +37,12 @@ public class ImageUtil {
 //        images.put("bg_element", backgroundElement);
         /* background element */
 
+        /* Common Start */
+        List<Image> common = new CopyOnWriteArrayList<>();
+        common.add(MapleStoryUtil.getImage("common/blood"));
+        images.put("common", common);
+        /* Common End */
+
 
         /* Ground Start */
         List<Image> ground = new CopyOnWriteArrayList<>();

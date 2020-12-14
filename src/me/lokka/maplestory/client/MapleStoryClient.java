@@ -134,7 +134,6 @@ public class MapleStoryClient extends MapleStoryFrame {
         g.drawString("Ground1.x: " + (bg.x + groundList.get(0).x), 200, 270);
         g.drawString("Ground1.y: " + (bg.y + groundList.get(0).y), 200, 300);
         g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
-        g.drawLine(0, Constant.GAME_HEIGHT / 2, Constant.GAME_WIDTH, Constant.GAME_HEIGHT / 2);
         g.setFont(f);
 
         for (Mob mob : mobList) {

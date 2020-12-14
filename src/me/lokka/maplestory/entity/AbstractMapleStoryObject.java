@@ -86,5 +86,15 @@ public abstract class AbstractMapleStoryObject implements Moveable, Drawable {
      */
     public boolean live = true;
 
-    public abstract Rectangle getRectangle();
+    public void draw(Graphics g) {
+        move();
+        g.drawImage(img, x, y, null);
+    };
+
+    public Rectangle getRectangle() {
+        return null;
+    }
+
+    @Override
+    public void move() {}
 }
