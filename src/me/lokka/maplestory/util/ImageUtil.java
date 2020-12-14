@@ -43,6 +43,14 @@ public class ImageUtil {
         images.put("common", common);
         /* Common End */
 
+        /* Number Start */
+        List<Image> powerNum = new CopyOnWriteArrayList<>();
+        for (int i = 0; i <= 9; i++) {
+            powerNum.add(MapleStoryUtil.getImage("num/" + i));
+        }
+        images.put("powernum", powerNum);
+        /* Number End */
+
 
         /* Ground Start */
         List<Image> ground = new CopyOnWriteArrayList<>();

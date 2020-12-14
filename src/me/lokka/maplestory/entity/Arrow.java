@@ -94,7 +94,9 @@ public class Arrow extends AbstractMapleStoryObject {
     public boolean hit(Mob mob) {
         if (this.live && mob.live && this.getRectangle().intersects(mob.getRectangle())) {
             this.live = false;
-            mob.HP -= 30;
+            int atk = random.nextInt(100000001);
+            mob.HP -= atk;
+            msc.powerList.add(new Power(msc, mob.x + mob.width, mob.y - 30, atk));
             if (mob.HP <= 0) {
                 mob.live = false;
                 // 几率掉落道具

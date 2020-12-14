@@ -107,6 +107,11 @@ public class MapleStoryClient extends MapleStoryFrame {
         }
     }
 
+    /**
+     * 伤害数字
+     */
+    public List<Power> powerList = new CopyOnWriteArrayList<>();
+
     @Override
     public void paint(Graphics g) {
         Image canvas = ImageUtil.getValue("background").get(1);
@@ -147,6 +152,10 @@ public class MapleStoryClient extends MapleStoryFrame {
 
         for (Item item : itemList) {
             item.draw(g);
+        }
+
+        for (Power power : powerList) {
+            power.draw(g);
         }
 
         hero.draw(g);
