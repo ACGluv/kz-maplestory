@@ -93,6 +93,8 @@ public class Arrow extends AbstractMapleStoryObject {
         if (this.live && mob.live && this.getRectangle().intersects(mob.getRectangle())) {
             this.live = false;
             int atk = random.nextInt(1000000);
+            //atk = (int) (1e6 - 1);
+            mob.hit = true;
             mob.HP -= atk;
             msc.powerList.add(new Power(msc, mob.x + mob.width / 2, mob.y - 30, atk));
             if (mob.HP <= 0) {

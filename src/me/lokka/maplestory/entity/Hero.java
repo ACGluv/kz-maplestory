@@ -114,7 +114,7 @@ public class Hero extends AbstractMapleStoryObject {
     }
 
     private int step = -1, cnt = 0;
-    public boolean right, left, prone, jump, shoot, moving;
+    public boolean right, left, prone, jump, shoot, moving, pickup;
 
     @Override
     public void move() {
@@ -153,6 +153,11 @@ public class Hero extends AbstractMapleStoryObject {
             // 自由落体
             verticalDir = Direction.DOWN;
             jumpDown(msc.groundList);
+        }
+
+        if (pickup) {
+            pickUp(msc.itemList);
+            pickup = false;
         }
 
         outOfBounds();
@@ -296,6 +301,9 @@ public class Hero extends AbstractMapleStoryObject {
             case KeyEvent.VK_J:
                 shoot = true;
                 break;
+            case KeyEvent.VK_H:
+                pickup = true;
+                break;
             default:
                 break;
         }
@@ -326,5 +334,28 @@ public class Hero extends AbstractMapleStoryObject {
     @Override
     public Rectangle getRectangle() {
         return new Rectangle(x, y, width, height);
+    }
+
+    /**
+     * 拾取道具的方法
+     * @param item
+     * @return 是否有拾取到
+     */
+    public boolean pickUp(Item item) {
+        if (this.getRectangle().intersects(item.getRectangle())) {
+            msc.itemPackage.getItemPackage().add(item);
+            item.live = false;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean pickUp(List<Item> itemList) {
+        for (Item item : itemList) {
+            if (pickUp(item)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

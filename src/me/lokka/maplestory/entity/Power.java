@@ -38,12 +38,17 @@ public class Power extends AbstractMapleStoryObject {
 
     @Override
     public void draw(Graphics g) {
-        int tmp = num, tx = x;
+        int tmp = num, tx = x, ty = y, cnt = 1;
         while(tmp != 0) {
             int idx = tmp % 10;
-            g.drawImage(imgs.get(idx), msc.bg.x + tx, msc.bg.y + y, null);
+            if (cnt++ % 2 == 1) {
+                ty += 4;
+            } else {
+                ty -= 4;
+            }
             tmp /= 10;
-            tx -= width - 2;
+            g.drawImage(imgs.get(idx), msc.bg.x + tx, msc.bg.y + ty, null);
+            tx -= width - 10;
         }
         move();
     }

@@ -36,7 +36,7 @@ public class Item extends AbstractMapleStoryObject {
 
     @Override
     public Rectangle getRectangle() {
-        return null;
+        return new Rectangle(msc.bg.x + x, msc.bg.y + y, width, height);
     }
 
     @Override

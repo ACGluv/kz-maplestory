@@ -93,16 +93,16 @@ public class Background extends AbstractMapleStoryObject{
     @Override
     public void draw(Graphics g) {
         move();
-        treeLyr04_1.draw(g);
-        treeLyr04_2.draw(g);
-        treeLyr03_1.draw(g);
-        treeLyr03_2.draw(g);
-        treeLyr03_3.draw(g);
-        treeLyr02_1.draw(g);
-        treeLyr02_2.draw(g);
-        treeLyr02_3.draw(g);
-        treeLyr01_1.draw(g);
-        treeLyr01_2.draw(g);
+//        treeLyr04_1.draw(g);
+//        treeLyr04_2.draw(g);
+//        treeLyr03_1.draw(g);
+//        treeLyr03_2.draw(g);
+//        treeLyr03_3.draw(g);
+//        treeLyr02_1.draw(g);
+//        treeLyr02_2.draw(g);
+//        treeLyr02_3.draw(g);
+//        treeLyr01_1.draw(g);
+//        treeLyr01_2.draw(g);
 //        edgeLight.draw(g);
         g.drawImage(img, x, y + 100, null);
     }

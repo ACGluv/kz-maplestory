@@ -112,10 +112,12 @@ public class MapleStoryClient extends MapleStoryFrame {
      */
     public List<Power> powerList = new CopyOnWriteArrayList<>();
 
+    public ItemPackage itemPackage = new ItemPackage(this, 400, 300);
+
     @Override
     public void paint(Graphics g) {
         Image canvas = ImageUtil.getValue("background").get(1);
-        //g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
+        g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
 
 
         bg.draw(g);
@@ -124,20 +126,20 @@ public class MapleStoryClient extends MapleStoryFrame {
             ground.draw(g);
         }
 
-//        Font f = g.getFont();
-//        Color c = g.getColor();
-//        g.setFont(new Font("Times New Roman", Font.BOLD, 23));
-//        g.setColor(Color.WHITE);
-//        g.drawString("Hero.x: " + hero.x, 200, 120);
-//        g.drawString("Hero.y: " + hero.y, 200, 150);
-//        g.drawString("Hero.action: " + hero.action, 200, 180);
-//        g.drawString("Hero.jump: " + hero.jump, 200, 210);
-//        g.drawString("Hero.drop: " + hero.drop, 200, 240);
-//        g.drawString("Ground1.x: " + (bg.x + groundList.get(0).x), 200, 270);
-//        g.drawString("Ground1.y: " + (bg.y + groundList.get(0).y), 200, 300);
-//        g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
-//        g.setFont(f);
-//        g.setColor(c);
+        Font f = g.getFont();
+        Color c = g.getColor();
+        g.setFont(new Font("Times New Roman", Font.BOLD, 23));
+        g.setColor(Color.WHITE);
+        g.drawString("Hero.x: " + hero.x, 200, 120);
+        g.drawString("Hero.y: " + hero.y, 200, 150);
+        g.drawString("Hero.action: " + hero.action, 200, 180);
+        g.drawString("Hero.jump: " + hero.jump, 200, 210);
+        g.drawString("Hero.drop: " + hero.drop, 200, 240);
+        g.drawString("Ground1.x: " + (bg.x + groundList.get(0).x), 200, 270);
+        g.drawString("Ground1.y: " + (bg.y + groundList.get(0).y), 200, 300);
+        g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
+        g.setFont(f);
+        g.setColor(c);
 
         for (Mob mob : mobList) {
             mob.draw(g);

@@ -51,43 +51,54 @@ public class Mob extends AbstractMapleStoryObject {
     private int cnt, step = -1;
     public int die_x_right, origin_y_down;
     private void calcStep() {
-        // 图片切换速度
-        switch (action) {
-            case STAND:
-                if (cnt++ % 3 == 0) step++;
-                break;
-            case DIE:
-                if (cnt++ % 2 == 0) step++;
-                break;
-            default:
-                break;
-        }
+    // 图片切换速度
+    switch (action) {
+        case WALK:
+        case STAND:
+            if (cnt++ % 3 == 0) step++;
+            break;
+        case HIT:
+            if (cnt++ % 7 == 0) {
+                action = Action.STAND;
+                step++;
+            }
+            break;
+        case DIE:
+            if (cnt++ % 2 == 0) step++;
+            break;
+        default:
+            break;
+    }
     }
 
     private boolean flag = false;
+    public boolean hit = false;
     @Override
     public void move() {
         if (!live) {
             if (!flag) {
                 cnt = 0;
                 step = -1;
-                die_x_right = x + width;
                 flag = true;
+                die_x_right = x + width;
             }
             action = Action.DIE;
             return;
         }
+        if (hit) {
+            cnt = 1;
+            step = 0;
+            action = Action.HIT;
+            hit = false;
+        }
     }
 
     private void drawBloodBar(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.GREEN);
         Image bloodBlk = ImageUtil.getValue("common").get(0);
         int bloodBlkWidth = bloodBlk.getWidth(null);
-        for (int i = 0; i < width / bloodBlkWidth * HP / MAX_HP; i++) {
+        for (int i = 0; i <= (width / bloodBlkWidth - 1) * HP / MAX_HP; i++) {
             g.drawImage(bloodBlk, msc.bg.x + x + i * bloodBlkWidth, msc.bg.y + y - 12 , null);
         }
-        g.setColor(c);
     }
 
     @Override
@@ -109,6 +120,12 @@ public class Mob extends AbstractMapleStoryObject {
                             msc.mobList.remove(this);
                             return;
                         }
+                        break;
+                    case HIT:
+                        idx = 12;
+                        break;
+                    case WALK:
+                        idx = step % 6 + 6;
                         break;
                     default:
                         break;
@@ -147,7 +164,9 @@ public class Mob extends AbstractMapleStoryObject {
 //                    img.getHeight(null)
 //            );
         }
-        drawBloodBar(g);
+        if (HP <= MAX_HP && live) {
+            drawBloodBar(g);
+        }
     }
 
     @Override
