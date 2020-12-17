@@ -42,19 +42,6 @@ public class MapleStoryClient extends MapleStoryFrame {
      */
     public Background bg = new Background(this, ImageUtil.getValue("background").get(0));
 
-//    /**
-//     * 背景元素容器
-//     */
-//    public List<Element> bgElementList = new CopyOnWriteArrayList<>();
-//    {
-//        Element bg_lyr_1 = new Element(this, ImageUtil.getValue("bg_element").get(0), -500, -600, 2, 0, false);
-//        bgElementList.add(bg_lyr_1);
-//        Element bg_lyr_2 = new Element(this, ImageUtil.getValue("bg_element").get(1), -500, -600, 3, 0, false);
-//        bgElementList.add(bg_lyr_2);
-//        Element bg_lyr_3 = new Element(this, ImageUtil.getValue("bg_element").get(2), -500, -600, 4, 0, false);
-//        bgElementList.add(bg_lyr_3);
-//    }
-
     /**
      * 初始化 Ground 容器
      */
@@ -101,7 +88,7 @@ public class MapleStoryClient extends MapleStoryFrame {
      * 初始化 Mob 容器
      */
     {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             Mob mob = new Mob(this, ImageUtil.getValue("dechick"), i * 100 + 400, 1624);
             mobList.add(mob);
         }
@@ -112,7 +99,7 @@ public class MapleStoryClient extends MapleStoryFrame {
      */
     public List<Power> powerList = new CopyOnWriteArrayList<>();
 
-    public ItemPackage itemPackage = new ItemPackage(this, 400, 300);
+    public ItemPackage itemPackage = new ItemPackage(this, 1300, 300);
 
     @Override
     public void paint(Graphics g) {
@@ -159,6 +146,8 @@ public class MapleStoryClient extends MapleStoryFrame {
         }
 
         hero.draw(g);
+
+        itemPackage.draw(g);
     }
 
     public static void main(String[] args) {

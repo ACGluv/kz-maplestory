@@ -13,6 +13,9 @@ import java.awt.*;
  */
 public class Item extends AbstractMapleStoryObject {
 
+    public int qty = 1;
+    public int pid;
+
     public Item() {
 
     }
@@ -21,17 +24,28 @@ public class Item extends AbstractMapleStoryObject {
         this.msc = msc;
         this.x = x;
         this.y = y;
+        int idx;
         switch (type) {
-            case 0 :
-                this.img = ImageUtil.getValue("blood").get(0);
+            case 0:
+                idx = random.nextInt(2);
+                this.img = ImageUtil.getValue("blood").get(idx);
+                this.pid = idx;
                 break;
-            case 1 :
-                this.img = ImageUtil.getValue("mana").get(0);
+            case 1:
+                idx = random.nextInt(2);
+                this.img = ImageUtil.getValue("mana").get(idx);
+                this.pid = 2 * type + idx;
+                break;
+            case 2:
+                idx = random.nextInt(7);
+                this.img = ImageUtil.getValue("commonitem").get(idx);
+                this.pid = 2 * type + idx;
                 break;
             default: break;
         }
         this.width = img.getWidth(null);
         this.height = img.getHeight(null);
+        this.pid = pid;
     }
 
     @Override

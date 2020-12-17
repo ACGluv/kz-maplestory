@@ -153,12 +153,30 @@ public class ImageUtil {
         /* Item Start */
         List<Image> blood = new CopyOnWriteArrayList<>();
         blood.add(MapleStoryUtil.getImage("item/HP_50"));
+        blood.add(MapleStoryUtil.getImage("item/HP_100"));
         images.put("blood", blood);
 
         List<Image> mana = new CopyOnWriteArrayList<>();
         mana.add(MapleStoryUtil.getImage("item/MP_50"));
+        mana.add(MapleStoryUtil.getImage("item/MP_100"));
         images.put("mana", mana);
+
+        List<Image> commonitem = new CopyOnWriteArrayList<>();
+        commonitem.add(MapleStoryUtil.getImage("item/coconut"));
+        commonitem.add(MapleStoryUtil.getImage("item/coke"));
+        commonitem.add(MapleStoryUtil.getImage("item/icecream"));
+        commonitem.add(MapleStoryUtil.getImage("item/juice"));
+        commonitem.add(MapleStoryUtil.getImage("item/pearl"));
+        commonitem.add(MapleStoryUtil.getImage("item/riceroll"));
+        commonitem.add(MapleStoryUtil.getImage("item/soda"));
+        images.put("commonitem", commonitem);
         /* Item End */
+
+        /* Item Package Start */
+        List<Image> itempackage = new CopyOnWriteArrayList<>();
+        itempackage.add(MapleStoryUtil.getImage("itempackage/ItemPackage"));
+        images.put("itempackage", itempackage);
+        /* Item Package End */
 
     }
 

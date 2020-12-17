@@ -304,6 +304,9 @@ public class Hero extends AbstractMapleStoryObject {
             case KeyEvent.VK_H:
                 pickup = true;
                 break;
+            case KeyEvent.VK_I:
+                msc.itemPackage.live = !msc.itemPackage.live;
+                break;
             default:
                 break;
         }
@@ -343,8 +346,14 @@ public class Hero extends AbstractMapleStoryObject {
      */
     public boolean pickUp(Item item) {
         if (this.getRectangle().intersects(item.getRectangle())) {
-            msc.itemPackage.getItemPackage().add(item);
             item.live = false;
+            for (Item it : msc.itemPackage.getItemPackage()) {
+                if (it.pid == item.pid) {
+                    it.qty++;
+                    return true;
+                }
+            }
+            msc.itemPackage.getItemPackage().add(item);
             return true;
         }
         return false;
