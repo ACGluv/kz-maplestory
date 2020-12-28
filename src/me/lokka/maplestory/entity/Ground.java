@@ -11,10 +11,6 @@ import java.awt.*;
  */
 public class Ground extends AbstractMapleStoryObject {
 
-    public Ground() {
-
-    }
-
     public Ground(MapleStoryClient msc, Image img, int x, int y) {
         this.msc = msc;
         this.x = x;
@@ -49,8 +45,8 @@ public class Ground extends AbstractMapleStoryObject {
         if (img != null) {
             g.drawImage(img, msc.bg.x + x, msc.bg.y + y, null);
         } else {
-            //g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
+            g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
         }
-        //g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
+        g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
     }
 }

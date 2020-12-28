@@ -47,7 +47,9 @@ public class MapleStoryClient extends MapleStoryFrame {
      */
     public List<Ground> groundList = new CopyOnWriteArrayList<>();
     {
-        Ground ground_1 = new Ground(this, ImageUtil.getValue("ground").get(0), 0, 1698);
+        List<Image> groundImages = ImageUtil.getValue("ground");
+
+        Ground ground_1 = new Ground(this, groundImages.get(0), 0, 1698);
         groundList.add(ground_1);
 
         int xx = 824, yy = 1650;
@@ -63,14 +65,34 @@ public class MapleStoryClient extends MapleStoryFrame {
             groundList.add(ground_tmp);
         }
 
-        Ground ground_2 = new Ground(this, ImageUtil.getValue("ground").get(1), 0, 1398);
+        Ground ground_2 = new Ground(this, groundImages.get(1), 0, 1398);
         groundList.add(ground_2);
 
-        Ground ground_3 = new Ground(this, ImageUtil.getValue("ground").get(3), 824, 1085);
+        Ground ground_3 = new Ground(this, groundImages.get(3), 824, 1085);
         groundList.add(ground_3);
 
-        Ground ground_2_right = new Ground(this, ImageUtil.getValue("ground").get(2), 2440, 1046);
+        Ground ground_2_right = new Ground(this, groundImages.get(2), 2440, 1046);
         groundList.add(ground_2_right);
+    }
+
+    /**
+     * 初始化 Rope 容器
+     */
+    public List<Rope> ropeList = new CopyOnWriteArrayList<>();
+    {
+        List<Image> ropeImages = ImageUtil.getValue("rope");
+
+        Rope rope_01_01 = new Rope(this, ropeImages.get(0), 573, 1400);
+        ropeList.add(rope_01_01);
+
+        Rope rope_01_02 = new Rope(this, ropeImages.get(0), 1030, 1400);
+        ropeList.add(rope_01_02);
+
+        Rope rope_02_01 = new Rope(this, ropeImages.get(1), 958, 1085);
+        ropeList.add(rope_02_01);
+
+        Rope rope_02_02 = new Rope(this, ropeImages.get(2), 2686, 1046);
+        ropeList.add(rope_02_02);
     }
 
     /**
@@ -88,7 +110,7 @@ public class MapleStoryClient extends MapleStoryFrame {
      * 初始化 Mob 容器
      */
     {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             Mob mob = new Mob(this, ImageUtil.getValue("dechick"), i * 100 + 400, 1624);
             mobList.add(mob);
         }
@@ -106,11 +128,14 @@ public class MapleStoryClient extends MapleStoryFrame {
         Image canvas = ImageUtil.getValue("background").get(1);
         g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
 
-
         bg.draw(g);
 
         for (Ground ground : groundList) {
             ground.draw(g);
+        }
+
+        for (Rope rope : ropeList) {
+            rope.draw(g);
         }
 
         Font f = g.getFont();

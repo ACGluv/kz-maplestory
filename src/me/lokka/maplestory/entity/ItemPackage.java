@@ -32,16 +32,25 @@ public class ItemPackage extends AbstractMapleStoryObject {
     public void draw(Graphics g) {
         if (!live) return;
         g.drawImage(img, x, y, null);
-        int dx = 36, dy = 17;
+
+        // 12 为图片基础左边距，16+36 为图片基础上边距
+        int dx = 12, dy = 16, edgeL = 36;
         for (int i = 0; i < itemPackage.size(); i++) {
+            // 每四个一换行，更新 y轴相对坐标
             if (i % 4 == 0) {
-                dx = 36;
-                dy += 36;
+                dy += edgeL;
             }
             Item item = itemPackage.get(i);
-            g.drawImage(item.img, x + i % 4 * dx + 13, y + dy, null);
+            // 长宽最长设定为 30, 短边等比例缩放
+            int tw = 30, th = 30;
+            if (item.width > item.height) {
+                th = (int) (30.0 / item.width * item.height);
+            } else if (item.width < item.height) {
+                tw = (int) (30.0 / item.height * item.width);
+            }
+            g.drawImage(item.img, x + i % 4 * edgeL + dx, y + dy, tw, th, null);
             g.setColor(Color.BLACK);
-            g.drawString("" + item.qty, x + i % 4 * dx + 13, y + dy + 30);
+            g.drawString("" + item.qty, x + i % 4 * edgeL + dx, y + dy + 30);
         }
     }
 }

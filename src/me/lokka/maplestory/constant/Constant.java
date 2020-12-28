@@ -51,6 +51,14 @@ public class Constant {
      */
     public static final String IMG_POST = props.getProperty("IMG_POST");
     /**
+     * 声音路径前缀
+     */
+    public static final String AUD_PRE = props.getProperty("AUD_PRE");
+    /**
+     * 声音路径后缀
+     */
+    public static final String AUD_POST = props.getProperty("AUD_POST");
+    /**
      * 移动速度
      */
     public static final int HERO_SPEED = Integer.parseInt(props.getProperty("HERO_SPEED"));

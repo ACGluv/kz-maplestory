@@ -15,12 +15,16 @@ import java.util.List;
  */
 public class Hero extends AbstractMapleStoryObject {
 
+    private int MAX_HP;
+
     public Hero() {
         this.speed = Constant.HERO_SPEED;
         this.dir = Direction.RIGHT;
         this.verticalDir = Direction.HOLD;
         this.action = Action.STAND;
         this.atk = 30;
+        this.MAX_HP = (int) 1e6;
+        this.HP = this.MAX_HP;
     }
 
     public Hero(MapleStoryClient msc, List<Image> images, int x, int y) {
@@ -114,10 +118,32 @@ public class Hero extends AbstractMapleStoryObject {
     }
 
     private int step = -1, cnt = 0;
-    public boolean right, left, prone, jump, shoot, moving, pickup;
+    public boolean right, left, prone, jump, shoot, moving, pickup, climb, climbing;
 
     @Override
     public void move() {
+        if (climb) {
+            if (climbable(msc.ropeList)) {
+                if (verticalDir == Direction.UP) {
+                    y -= speed * 2 / 3;
+                } else if (verticalDir == Direction.DOWN){
+                    y += speed * 2 / 3;
+                }
+                action = Action.CLIMB;
+                climbing = true;
+                drop = false;
+            } else {
+                climb = climbing = false;
+                drop = true;
+            }
+            return;
+        }
+
+        if (climbing) {
+            prone = false;
+            return;
+        }
+
         if (prone && !jump) {
             moving = false;
             action = Action.PRONE;
@@ -149,7 +175,7 @@ public class Hero extends AbstractMapleStoryObject {
             verticalDir = Direction.UP;
             jump(msc.groundList);
             action = Action.JUMP;
-        } else {
+        } else if (!climbing){
             // 自由落体
             verticalDir = Direction.DOWN;
             jumpDown(msc.groundList);
@@ -197,6 +223,7 @@ public class Hero extends AbstractMapleStoryObject {
         // 图片切换速度
         switch (action) {
             case STAND:
+            case CLIMB:
                 if (cnt++ % 4 == 0) step++;
                 break;
             case WALK:
@@ -209,6 +236,14 @@ public class Hero extends AbstractMapleStoryObject {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void drawBloodBar(Graphics g) {
+        Image bloodBlk = ImageUtil.getValue("common").get(0);
+        int bloodBlkWidth = bloodBlk.getWidth(null);
+        for (int i = 0; i <= (width / bloodBlkWidth - 1) * HP / MAX_HP; i++) {
+            g.drawImage(bloodBlk, x + i * bloodBlkWidth, y - 12 , null);
         }
     }
 
@@ -235,6 +270,8 @@ public class Hero extends AbstractMapleStoryObject {
                     case SHOOT:
                         idx = step % 4 + 26;
                         break;
+                    case CLIMB:
+                        idx = step % 2 + 34;
                     default:
                         break;
                 }
@@ -256,6 +293,8 @@ public class Hero extends AbstractMapleStoryObject {
                     case SHOOT:
                         idx = step % 4 + 30;
                         break;
+                    case CLIMB:
+                        idx = step % 2 + 34;
                     default:
                         break;
                 }
@@ -276,6 +315,20 @@ public class Hero extends AbstractMapleStoryObject {
             g.drawImage(img, x, y, null);
             g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
         }
+
+        if (HP <= MAX_HP && live) {
+            drawBloodBar(g);
+        }
+    }
+
+    boolean climbable(List<Rope> ropeList) {
+        for (Rope rope : ropeList) {
+            if (this.getRectangle().intersects(rope.getRectangle())) {
+                if (verticalDir == Direction.UP && this.y + this.height - (msc.bg.y + rope.y) < 8) return false;
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean flag = true; // 判断动作开始
@@ -293,6 +346,14 @@ public class Hero extends AbstractMapleStoryObject {
                 right = true;
                 break;
             case KeyEvent.VK_S:
+                climb = true;
+                verticalDir = Direction.DOWN;
+                break;
+            case KeyEvent.VK_W:
+                climb = true;
+                verticalDir = Direction.UP;
+                break;
+            case KeyEvent.VK_Z:
                 prone = true;
                 break;
             case KeyEvent.VK_K:
@@ -326,8 +387,13 @@ public class Hero extends AbstractMapleStoryObject {
             case KeyEvent.VK_D:
                 right = false;
                 break;
-            case KeyEvent.VK_S:
+            case KeyEvent.VK_Z:
                 prone = false;
+                break;
+            case KeyEvent.VK_S:
+            case KeyEvent.VK_W:
+                climb = false;
+                //verticalDir = Direction.HOLD;
                 break;
             default:
                 break;
@@ -336,7 +402,7 @@ public class Hero extends AbstractMapleStoryObject {
 
     @Override
     public Rectangle getRectangle() {
-        return new Rectangle(x, y, width, height);
+        return new Rectangle(x + width / 3, y + 12, width / 3, height - 12);
     }
 
     /**

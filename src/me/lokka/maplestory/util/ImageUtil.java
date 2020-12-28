@@ -67,6 +67,15 @@ public class ImageUtil {
         /* Ground End */
 
 
+        /* Rope Start */
+        List<Image> rope = new CopyOnWriteArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            rope.add(MapleStoryUtil.getImage("rope/rope_style_" + i));
+        }
+        images.put("rope", rope);
+        /* Rope End */
+
+
         /* RedHair Start */
         List<Image> redHair = new CopyOnWriteArrayList<>();
 
@@ -109,6 +118,10 @@ public class ImageUtil {
         // hero left shoot
         for (int i = 0; i < 4; i++) {
             redHair.add(MapleStoryUtil.getImage("hero/left/shoot1_" + i));
+        }
+        // hero climb
+        for (int i = 0; i < 2; i++) {
+            redHair.add(MapleStoryUtil.getImage("hero/common/climb_" + i));
         }
 
         images.put("redhair", redHair);

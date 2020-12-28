@@ -92,7 +92,7 @@ public class Arrow extends AbstractMapleStoryObject {
     public boolean hit(Mob mob) {
         if (this.live && mob.live && this.getRectangle().intersects(mob.getRectangle())) {
             this.live = false;
-            int atk = random.nextInt(1000000);
+            int atk = random.nextInt(10000000);
             //atk = (int) (1e6 - 1);
             mob.hit = true;
             mob.HP -= atk;
