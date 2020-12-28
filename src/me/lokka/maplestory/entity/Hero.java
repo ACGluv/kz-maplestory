@@ -123,12 +123,14 @@ public class Hero extends AbstractMapleStoryObject {
     @Override
     public void move() {
         if (climb) {
-            if (climbable(msc.ropeList)) {
+            Integer tx = climbable(msc.ropeList);
+            if (tx != null) {
                 if (verticalDir == Direction.UP) {
                     y -= speed * 2 / 3;
                 } else if (verticalDir == Direction.DOWN){
                     y += speed * 2 / 3;
                 }
+                x = tx - this.width * 2 / 9;
                 action = Action.CLIMB;
                 climbing = true;
                 drop = false;
@@ -321,14 +323,14 @@ public class Hero extends AbstractMapleStoryObject {
         }
     }
 
-    boolean climbable(List<Rope> ropeList) {
+    private Integer climbable(List<Rope> ropeList) {
         for (Rope rope : ropeList) {
             if (this.getRectangle().intersects(rope.getRectangle())) {
-                if (verticalDir == Direction.UP && this.y + this.height - (msc.bg.y + rope.y) < 8) return false;
-                return true;
+                if (verticalDir == Direction.UP && this.y + this.height - (msc.bg.y + rope.y) < 8) return null;
+                return rope.x + msc.bg.x;
             }
         }
-        return false;
+        return null;
     }
 
     private boolean flag = true; // 判断动作开始

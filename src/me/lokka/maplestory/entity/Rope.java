@@ -17,7 +17,7 @@ public class Rope extends Ground {
 
     @Override
     public Rectangle getRectangle() {
-        return new Rectangle(msc.bg.x + x + width / 3, msc.bg.y + y - 5, width / 3, height + 10);
+        return new Rectangle(msc.bg.x + x + width / 3, msc.bg.y + y - 5, width / 3, height + 5);
     }
 
     @Override
@@ -29,6 +29,6 @@ public class Rope extends Ground {
         } else {
             g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
         }
-        g.drawRect(msc.bg.x + x + width / 3, msc.bg.y + y - 5, width / 3, height + 10);
+        g.drawRect(msc.bg.x + x + width / 3, msc.bg.y + y - 5, width / 3, height + 5);
     }
 }

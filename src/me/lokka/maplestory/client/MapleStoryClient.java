@@ -3,6 +3,7 @@ package me.lokka.maplestory.client;
 import me.lokka.maplestory.constant.Constant;
 import me.lokka.maplestory.entity.*;
 import me.lokka.maplestory.util.ImageUtil;
+import me.lokka.maplestory.util.MusicThread;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -177,5 +178,6 @@ public class MapleStoryClient extends MapleStoryFrame {
 
     public static void main(String[] args) {
         new MapleStoryClient().loadFrame();
+        new MusicThread("bgm.mp3", true).start();
     }
 }
