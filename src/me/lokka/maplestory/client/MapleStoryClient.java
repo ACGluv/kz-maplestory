@@ -118,6 +118,16 @@ public class MapleStoryClient extends MapleStoryFrame {
     }
 
     /**
+     * 地图装饰物容器
+     */
+    public List<Widget> widgetList = new CopyOnWriteArrayList<>();
+    {
+        widgetList.add(new Widget(this, ImageUtil.getValue("elin_cave_0"), 1033, 1315, 2));
+        widgetList.add(new Widget(this, ImageUtil.getValue("elin_cave_1"), 1102, 1243, 2));
+        widgetList.add(new Widget(this, ImageUtil.getValue("fairy_field_acc_6"), 215, 1165, 5));
+    }
+
+    /**
      * 伤害数字
      */
     public List<Power> powerList = new CopyOnWriteArrayList<>();
@@ -130,6 +140,10 @@ public class MapleStoryClient extends MapleStoryFrame {
         g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
 
         bg.draw(g);
+
+        for (Widget widget : widgetList) {
+            widget.draw(g);
+        }
 
         for (Ground ground : groundList) {
             ground.draw(g);

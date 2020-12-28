@@ -191,6 +191,36 @@ public class ImageUtil {
         images.put("itempackage", itempackage);
         /* Item Package End */
 
+
+        /**
+         * Widget Start
+         */
+
+        /* Elin Cave_0 */
+        List<Image> elin_cave_0 = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            elin_cave_0.add(MapleStoryUtil.getImage("widget/elin/cave_0/" + i));
+        }
+        images.put("elin_cave_0", elin_cave_0);
+
+        /* Elin Cave_1 */
+        List<Image> elin_cave_1 = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            elin_cave_1.add(MapleStoryUtil.getImage("widget/elin/cave_1/" + i));
+        }
+        images.put("elin_cave_1", elin_cave_1);
+
+        /* Elin Fairy Field Acc_6 */
+        List<Image> fairy_field_acc_6 = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            fairy_field_acc_6.add(MapleStoryUtil.getImage("widget/elin/fairyfieldacc_6/" + i));
+        }
+        images.put("fairy_field_acc_6", fairy_field_acc_6);
+
+        /**
+         * Widget End
+         */
+
     }
 
     /**
