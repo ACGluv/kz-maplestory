@@ -209,12 +209,33 @@ public class ImageUtil {
         }
         images.put("elin_cave_1", elin_cave_1);
 
+        /* Elin Fairy Field Acc_1 */
+        List<Image> fairy_field_acc_1 = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            fairy_field_acc_1.add(MapleStoryUtil.getImage("widget/elin/fairyfieldacc_1/" + i));
+        }
+        images.put("fairy_field_acc_1", fairy_field_acc_1);
+
         /* Elin Fairy Field Acc_6 */
         List<Image> fairy_field_acc_6 = new CopyOnWriteArrayList<>();
         for (int i = 0; i < 8; i++) {
             fairy_field_acc_6.add(MapleStoryUtil.getImage("widget/elin/fairyfieldacc_6/" + i));
         }
         images.put("fairy_field_acc_6", fairy_field_acc_6);
+
+        /* Elin Fairy Field Acc_16 */
+        List<Image> fairy_field_acc_16 = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            fairy_field_acc_16.add(MapleStoryUtil.getImage("widget/elin/fairyfieldacc_16/" + i));
+        }
+        images.put("fairy_field_acc_16", fairy_field_acc_16);
+
+        /* Elin Fairy Boss_1 */
+        List<Image> fairy_boss_1 = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            fairy_boss_1.add(MapleStoryUtil.getImage("widget/elin/fairyboss_1/" + i));
+        }
+        images.put("fairy_boss_1", fairy_boss_1);
 
         /**
          * Widget End

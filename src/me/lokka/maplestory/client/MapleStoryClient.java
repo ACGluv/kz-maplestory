@@ -145,6 +145,10 @@ public class MapleStoryClient extends MapleStoryFrame {
         widgetList.add(new Widget(this, ImageUtil.getValue("elin_cave_0"), 633, 1315, 3));
         widgetList.add(new Widget(this, ImageUtil.getValue("elin_cave_1"), 702, 1243, 3));
         widgetList.add(new Widget(this, ImageUtil.getValue("fairy_field_acc_6"), 215, 1165, 5));
+        widgetList.add(new Widget(this, ImageUtil.getValue("fairy_field_acc_1"), 2110, 1630, 3));
+        widgetList.add(new Widget(this, ImageUtil.getValue("fairy_field_acc_1"), 760, 1610, 3));
+        widgetList.add(new Widget(this, ImageUtil.getValue("fairy_field_acc_16"), 2858, 1229, 3));
+        widgetList.add(new Widget(this, ImageUtil.getValue("fairy_boss_1"), 2930, 1219, 3));
     }
 
     /**
