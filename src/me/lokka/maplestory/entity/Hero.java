@@ -219,14 +219,21 @@ public class Hero extends AbstractMapleStoryObject {
         if (x >= Constant.GAME_WIDTH - this.width) {
             x = Constant.GAME_WIDTH - this.width;
         }
+        if (y >= 1698) {
+            y = 1698;
+        }
     }
 
     private void calcStep() {
         // 图片切换速度
         switch (action) {
             case STAND:
-            case CLIMB:
                 if (cnt++ % 4 == 0) step++;
+                break;
+            case CLIMB:
+                if (climb) {
+                    if (cnt++ % 4 == 0) step++;
+                }
                 break;
             case WALK:
             case SHOOT:
@@ -274,6 +281,7 @@ public class Hero extends AbstractMapleStoryObject {
                         break;
                     case CLIMB:
                         idx = step % 2 + 34;
+                        break;
                     default:
                         break;
                 }
@@ -297,6 +305,7 @@ public class Hero extends AbstractMapleStoryObject {
                         break;
                     case CLIMB:
                         idx = step % 2 + 34;
+                        break;
                     default:
                         break;
                 }
@@ -309,13 +318,13 @@ public class Hero extends AbstractMapleStoryObject {
 
         if (prone) {
             g.drawImage(img, x, y + 26, null);
-            g.drawRect(x, y + 26, img.getWidth(null), img.getHeight(null));
+//            g.drawRect(x, y + 26, img.getWidth(null), img.getHeight(null));
         } else if (jump) {
             g.drawImage(img, x, y, null);
-            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
+//            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
         } else {
             g.drawImage(img, x, y, null);
-            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
+//            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
         }
 
         if (HP <= MAX_HP && live) {
@@ -395,7 +404,6 @@ public class Hero extends AbstractMapleStoryObject {
             case KeyEvent.VK_S:
             case KeyEvent.VK_W:
                 climb = false;
-                //verticalDir = Direction.HOLD;
                 break;
             default:
                 break;

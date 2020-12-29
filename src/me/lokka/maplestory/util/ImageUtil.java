@@ -162,6 +162,50 @@ public class ImageUtil {
         /* Dechick End */
 
 
+        /* Mosnail Start */
+        List<Image> mosnail = new CopyOnWriteArrayList<>();
+
+        // mosnail stand left
+        for (int i = 0; i < 6; i++) {
+            mosnail.add(MapleStoryUtil.getImage("mob/mosnail/left/stand_" + i));
+        }
+        // mosnail stand right
+        for (int i = 0; i < 6; i++) {
+            mosnail.add(MapleStoryUtil.getImage("mob/mosnail/right/stand_" + i));
+        }
+        // mosnail move left
+        for (int i = 0; i < 12; i++) {
+            mosnail.add(MapleStoryUtil.getImage("mob/mosnail/left/move_" + i));
+        }
+        // mosnail move right
+        for (int i = 0; i < 12; i++) {
+            mosnail.add(MapleStoryUtil.getImage("mob/mosnail/right/move_" + i));
+        }
+        // mosnail hit left
+        mosnail.add(MapleStoryUtil.getImage("mob/mosnail/left/hit1_0"));
+        // mosnail hit right
+        mosnail.add(MapleStoryUtil.getImage("mob/mosnail/right/hit1_0"));
+        // mosnail die left
+        for (int i = 0; i < 7; i++) {
+            mosnail.add(MapleStoryUtil.getImage("mob/mosnail/left/die1_" + i));
+        }
+        // mosnail die right
+        for (int i = 0; i < 7; i++) {
+            mosnail.add(MapleStoryUtil.getImage("mob/mosnail/right/die1_" + i));
+        }
+        // mosnail attack left
+        for (int i = 0; i < 22; i++) {
+            mosnail.add(MapleStoryUtil.getImage("mob/mosnail/left/attack1_" + i));
+        }
+        // mosnail attack right
+        for (int i = 0; i < 22; i++) {
+            mosnail.add(MapleStoryUtil.getImage("mob/mosnail/right/attack1_" + i));
+        }
+
+        images.put("mosnail", mosnail);
+        /* Mosnail End */
+
+
         /* Item Start */
         List<Image> blood = new CopyOnWriteArrayList<>();
         blood.add(MapleStoryUtil.getImage("item/HP_50"));

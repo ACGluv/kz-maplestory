@@ -66,10 +66,10 @@ public class MapleStoryClient extends MapleStoryFrame {
 //            groundList.add(ground_tmp);
 //        }
 
-        Ground ground_2 = new Ground(this, groundImages.get(1), -200, 1398);
+        Ground ground_2 = new Ground(this, groundImages.get(1), -150, 1398);
         groundList.add(ground_2);
 
-        Ground ground_2_mid = new Ground(this, groundImages.get(5), 1205, 1390);
+        Ground ground_2_mid = new Ground(this, groundImages.get(5), 1255, 1390);
         groundList.add(ground_2_mid);
 
         Ground ground_2_right = new Ground(this, groundImages.get(4), 2808, 1339);
@@ -109,6 +109,9 @@ public class MapleStoryClient extends MapleStoryFrame {
         Rope rope_01_02 = new Rope(this, ropeImages.get(0), 930, 1400);
         ropeList.add(rope_01_02);
 
+        Rope rope_01_03 = new Rope(this, ropeImages.get(1), 1430, 1395);
+        ropeList.add(rope_01_03);
+
         Rope rope_02_01 = new Rope(this, ropeImages.get(1), 758, 1085);
         ropeList.add(rope_02_01);
 
@@ -131,8 +134,8 @@ public class MapleStoryClient extends MapleStoryFrame {
      * 初始化 Mob 容器
      */
     {
-        for (int i = 0; i < 2; i++) {
-            Mob mob = new Mob(this, ImageUtil.getValue("dechick"), i * 100 + 400, 1624);
+        for (int i = 0; i < 1; i++) {
+            Mob mob = new Mob(this, ImageUtil.getValue("mosnail"), i * 200 + 500, 1612);
             mobList.add(mob);
         }
     }
@@ -188,7 +191,7 @@ public class MapleStoryClient extends MapleStoryFrame {
         g.drawString("Hero.drop: " + hero.drop, 200, 240);
         g.drawString("Ground1.x: " + (bg.x + groundList.get(0).x), 200, 270);
         g.drawString("Ground1.y: " + (bg.y + groundList.get(0).y), 200, 300);
-        g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
+//        g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
         g.setFont(f);
         g.setColor(c);
 
@@ -216,6 +219,6 @@ public class MapleStoryClient extends MapleStoryFrame {
 
     public static void main(String[] args) {
         new MapleStoryClient().loadFrame();
-        new MusicThread("bgm.mp3", true).start();
+//        new MusicThread("bgm.mp3", true).start();
     }
 }

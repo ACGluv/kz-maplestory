@@ -5,7 +5,6 @@ import me.lokka.maplestory.constant.Constant;
 
 import java.awt.*;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @Description 箭矢类
@@ -92,10 +91,16 @@ public class Arrow extends AbstractMapleStoryObject {
     public boolean hit(Mob mob) {
         if (this.live && mob.live && this.getRectangle().intersects(mob.getRectangle())) {
             this.live = false;
-            int atk = random.nextInt(10000000);
+            int atk = random.nextInt(1000000);
             //atk = (int) (1e6 - 1);
             mob.hit = true;
             mob.HP -= atk;
+            if (this.dir == Direction.LEFT) {
+                mob.dir = Direction.RIGHT;
+            } else {
+                mob.dir = Direction.LEFT;
+            }
+            mob.underAttack = true;
             msc.powerList.add(new Power(msc, mob.x + mob.width / 2, mob.y - 30, atk));
             if (mob.HP <= 0) {
                 mob.live = false;

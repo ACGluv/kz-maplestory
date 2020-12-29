@@ -41,14 +41,14 @@ public class Power extends AbstractMapleStoryObject {
         int tmp = num, tx = x, ty = y, cnt = 1;
         while(tmp != 0) {
             int idx = tmp % 10;
-            if (cnt++ % 2 == 1) {
-                ty += 4;
+            if (cnt++ % 2 == 0) {
+                ty -= 6;
             } else {
-                ty -= 4;
+                ty += 6;
             }
             tmp /= 10;
             g.drawImage(imgs.get(idx), msc.bg.x + tx, msc.bg.y + ty, null);
-            tx -= width - 10;
+            tx -= width - 12;
         }
         move();
     }

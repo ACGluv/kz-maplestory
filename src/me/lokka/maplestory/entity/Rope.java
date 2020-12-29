@@ -29,6 +29,6 @@ public class Rope extends Ground {
         } else {
             g.drawRect(msc.bg.x + x, msc.bg.y + y, width, height);
         }
-        g.drawRect(msc.bg.x + x + width / 3, msc.bg.y + y - 5, width / 3, height + 5);
+        //g.drawRect(msc.bg.x + x + width / 3, msc.bg.y + y - 5, width / 3, height + 5);
     }
 }

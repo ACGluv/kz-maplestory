@@ -44,16 +44,16 @@ public class Background extends AbstractMapleStoryObject{
         this.action = Action.STAND;
 
         this.imgs = ImageUtil.getValue("background");
-        treeLyr01_1 = new BgElement(this.msc, imgs.get(2), -50, 0, 2, 1000,-7, true);
-        treeLyr01_2 = new BgElement(this.msc, imgs.get(3), 400, 0, 2, 1000,-7, true);
-        treeLyr02_1 = new BgElement(this.msc, imgs.get(4), 0, 0, 3, 800, -8, true);
-        treeLyr02_2 = new BgElement(this.msc, imgs.get(5), 240, 0, 2, 800, -8, true);
-        treeLyr02_3 = new BgElement(this.msc, imgs.get(6), 490, 0, 3, 800, -8, true);
-        treeLyr03_1 = new BgElement(this.msc, imgs.get(7), 70, 0, 4, 450, -9, true);
-        treeLyr03_2 = new BgElement(this.msc, imgs.get(8), 280, 0, 4, 450, -9, true);
-        treeLyr03_3 = new BgElement(this.msc, imgs.get(9), 400, 0, 4, 450, -9, true);
-        treeLyr04_1 = new BgElement(this.msc, imgs.get(10), 385, 0, 3, 450, -9, true);
-        treeLyr04_2 = new BgElement(this.msc, imgs.get(11), 85, 0, 3, 450, -9, true);
+        treeLyr01_1 = new BgElement(this.msc, imgs.get(2), -50, 0, 2, 1100,-7, true);
+        treeLyr01_2 = new BgElement(this.msc, imgs.get(3), 400, 0, 2, 1200,-7, true);
+        treeLyr02_1 = new BgElement(this.msc, imgs.get(4), 160, 0, 3, 850, -8, true);
+        treeLyr02_2 = new BgElement(this.msc, imgs.get(5), 340, 0, 3, 900, -8, true);
+        treeLyr02_3 = new BgElement(this.msc, imgs.get(6), 690, 0, 3, 800, -8, true);
+        treeLyr03_1 = new BgElement(this.msc, imgs.get(7), 70, 0, 4, 550, -9, true);
+        treeLyr03_2 = new BgElement(this.msc, imgs.get(8), 280, 0, 4, 550, -9, true);
+        treeLyr03_3 = new BgElement(this.msc, imgs.get(9), 400, 0, 4, 550, -9, true);
+        treeLyr04_1 = new BgElement(this.msc, imgs.get(10), 385, 0, 3, 550, -9, true);
+        treeLyr04_2 = new BgElement(this.msc, imgs.get(11), 85, 0, 3, 550, -9, true);
         edgeLight = new BgElement(this.msc, imgs.get(12), 0, 705, 50, 50, -10, false);
     }
 
@@ -102,7 +102,7 @@ public class Background extends AbstractMapleStoryObject{
 //        treeLyr02_3.draw(g);
 //        treeLyr01_1.draw(g);
 //        treeLyr01_2.draw(g);
-//        edgeLight.draw(g);
+        //edgeLight.draw(g);
         g.drawImage(img, x, y + 100, null);
     }
 

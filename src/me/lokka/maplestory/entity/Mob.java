@@ -1,6 +1,7 @@
 package me.lokka.maplestory.entity;
 
 import me.lokka.maplestory.client.MapleStoryClient;
+import me.lokka.maplestory.constant.Constant;
 import me.lokka.maplestory.util.ImageUtil;
 
 import java.awt.*;
@@ -18,6 +19,8 @@ public class Mob extends AbstractMapleStoryObject {
      */
     public static final int MAX_HP = (int) 1e6;
 
+    public boolean underAttack = false;
+
     public Mob(List<Image> imgs) {
         this.imgs = imgs;
         this.width = imgs.get(0).getWidth(null);
@@ -25,6 +28,8 @@ public class Mob extends AbstractMapleStoryObject {
         this.x = 500;
         this.y = 700;
         this.HP = MAX_HP;
+        this.speed = 3;
+        this.left = true;
     }
 
     public Mob(MapleStoryClient msc, List<Image> imgs, int x, int y) {
@@ -48,33 +53,67 @@ public class Mob extends AbstractMapleStoryObject {
         this.speed = speed;
     }
 
-    private int cnt, step = -1;
+    private int cnt = 0, step = -1;
     public int die_x_right, origin_y_down;
     private void calcStep() {
     // 图片切换速度
-    switch (action) {
-        case WALK:
-        case STAND:
-            if (cnt++ % 3 == 0) step++;
-            break;
-        case HIT:
-            if (cnt++ % 7 == 0) {
-                action = Action.STAND;
-                step++;
-            }
-            break;
-        case DIE:
-            if (cnt++ % 2 == 0) step++;
-            break;
-        default:
-            break;
+        switch (action) {
+            case WALK:
+            case STAND:
+            case DIE:
+                if (cnt++ % 3 == 0) step++;
+                break;
+            case HIT:
+                if (cnt++ % 7 == 0) {
+                    action = Action.STAND;
+                    step++;
+                }
+                break;
+            case ATTACK:
+                if (cnt++ % 2 == 0) step++;
+                break;
+            default:
+                break;
+        }
     }
+
+    private void outOfBounds() {
+        if (x <= 0) {
+            x = 0;
+            if (left) {
+                left = false;
+                right = true;
+            }
+        }
+        if (x >= 1800) {
+            x = 1800;
+            if (right) {
+                left = true;
+                right = false;
+            }
+        }
     }
 
     private boolean flag = false;
-    public boolean hit = false;
+    public boolean hit, left, right;
+    Direction[] dirs = {Direction.RIGHT, Direction.LEFT};
+    Action[] actions = {Action.WALK, Action.STAND};
+
     @Override
     public void move() {
+        // 修改当前怪物的状态，包括方向、动作
+        if (!underAttack) {
+            if (random.nextInt(1000) > 900) {
+                dir = dirs[random.nextInt(dirs.length)];
+                Action tmp_action = actions[random.nextInt(actions.length)];
+                if (tmp_action != action) {
+                    cnt = 0;
+                    step = -1;
+                }
+                action = tmp_action;
+            }
+        }
+
         if (!live) {
             if (!flag) {
                 cnt = 0;
@@ -85,12 +124,26 @@ public class Mob extends AbstractMapleStoryObject {
             action = Action.DIE;
             return;
         }
+
         if (hit) {
             cnt = 1;
             step = 0;
             action = Action.HIT;
             hit = false;
         }
+
+        switch (action) {
+            case WALK :
+                switch (dir) {
+                    case LEFT -> x -= speed;
+                    case RIGHT -> x += speed;
+                }
+                break;
+            default:
+                break;
+        }
+
+        outOfBounds();
     }
 
     private void drawBloodBar(Graphics g) {
@@ -107,25 +160,51 @@ public class Mob extends AbstractMapleStoryObject {
         calcStep();
         int idx = 0; // 图片序号
         switch (dir) {
-            case RIGHT:
-                break;
             case LEFT:
                 switch (action) {
                     case STAND:
                         idx = step % 6;
                         break;
+                    case WALK:
+                        idx = step % 12 + 12;
+                        break;
+                    case HIT:
+                        idx = 36;
+                        break;
                     case DIE:
-                        idx = step % 12 + 13;
-                        if (idx == 24) {
+                        idx = step % 8 + 38;
+                        if (idx == 45) {
                             msc.mobList.remove(this);
                             return;
                         }
                         break;
-                    case HIT:
-                        idx = 12;
+                    case ATTACK:
+                        idx = step % 22 + 52;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case RIGHT:
+                switch (action) {
+                    case STAND:
+                        idx = step % 6 + 6;
                         break;
                     case WALK:
-                        idx = step % 6 + 6;
+                        idx = step % 12 + 24;
+                        break;
+                    case HIT:
+                        idx = 37;
+                        break;
+                    case DIE:
+                        idx = step % 8 + 45;
+                        if (idx == 52) {
+                            msc.mobList.remove(this);
+                            return;
+                        }
+                        break;
+                    case ATTACK:
+                        idx = step % 22 + 74;
                         break;
                     default:
                         break;
@@ -134,6 +213,7 @@ public class Mob extends AbstractMapleStoryObject {
             default:
                 break;
         }
+
         img = imgs.get(idx);
         if (!live) {
             die_x_right = Math.max(die_x_right, x + img.getWidth(null));
@@ -164,7 +244,7 @@ public class Mob extends AbstractMapleStoryObject {
 //                    img.getHeight(null)
 //            );
         }
-        if (HP <= MAX_HP && live) {
+        if (HP < MAX_HP && live) {
             drawBloodBar(g);
         }
     }
