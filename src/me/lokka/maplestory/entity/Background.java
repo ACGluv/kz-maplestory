@@ -4,7 +4,6 @@ import me.lokka.maplestory.client.MapleStoryClient;
 import me.lokka.maplestory.constant.Constant;
 import me.lokka.maplestory.util.ImageUtil;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.awt.*;
 import java.util.List;
 

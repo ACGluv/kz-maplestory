@@ -53,27 +53,47 @@ public class MapleStoryClient extends MapleStoryFrame {
         Ground ground_1 = new Ground(this, groundImages.get(0), 0, 1698);
         groundList.add(ground_1);
 
-        int xx = 824, yy = 1650;
-        for (int i = 0; i < 13; i++) {
-            Ground ground_tmp = new Ground(this, xx + i * 200, yy - i * 50, 200, 81);
-            groundList.add(ground_tmp);
-        }
+//        int xx = 824, yy = 1650;
+//        for (int i = 0; i < 13; i++) {
+//            Ground ground_tmp = new Ground(this, xx + i * 200, yy - i * 50, 200, 81);
+//            groundList.add(ground_tmp);
+//        }
 
-        xx = 1524;
-        yy = 1400;
-        for (int i = 0; i < 6; i++) {
-            Ground ground_tmp = new Ground(this, xx - i * 200, yy - i * 50, 200, 81);
-            groundList.add(ground_tmp);
-        }
+//        xx = 1524;
+//        yy = 1400;
+//        for (int i = 0; i < 6; i++) {
+//            Ground ground_tmp = new Ground(this, xx - i * 200, yy - i * 50, 200, 81);
+//            groundList.add(ground_tmp);
+//        }
 
-        Ground ground_2 = new Ground(this, groundImages.get(1), 0, 1398);
+        Ground ground_2 = new Ground(this, groundImages.get(1), -200, 1398);
         groundList.add(ground_2);
 
-        Ground ground_3 = new Ground(this, groundImages.get(3), 824, 1085);
+        Ground ground_2_mid = new Ground(this, groundImages.get(5), 1205, 1390);
+        groundList.add(ground_2_mid);
+
+        Ground ground_2_right = new Ground(this, groundImages.get(4), 2808, 1339);
+        groundList.add(ground_2_right);
+
+        Ground ground_3 = new Ground(this, groundImages.get(3), 324, 1085);
         groundList.add(ground_3);
 
-        Ground ground_2_right = new Ground(this, groundImages.get(2), 2440, 1046);
-        groundList.add(ground_2_right);
+        Ground ground_3_mid = new Ground(this, groundImages.get(5), 1321, 1050);
+        groundList.add(ground_3_mid);
+
+        Ground ground_3_right = new Ground(this, groundImages.get(2), 2440, 1046);
+        groundList.add(ground_3_right);
+
+        Ground ground_stair_1 = new Ground(this, groundImages.get(6), 2163, 945);
+        groundList.add(ground_stair_1);
+        Ground ground_stair_2 = new Ground(this, groundImages.get(6), 2189, 1121);
+        groundList.add(ground_stair_2);
+        Ground ground_stair_3 = new Ground(this, groundImages.get(6), 2371, 1214);
+        groundList.add(ground_stair_3);
+        Ground ground_stair_4 = new Ground(this, groundImages.get(6), 2330, 1331);
+        groundList.add(ground_stair_4);
+        Ground ground_stair_5 = new Ground(this, groundImages.get(6), 3070, 1174);
+        groundList.add(ground_stair_5);
     }
 
     /**
@@ -86,10 +106,10 @@ public class MapleStoryClient extends MapleStoryFrame {
         Rope rope_01_01 = new Rope(this, ropeImages.get(0), 573, 1400);
         ropeList.add(rope_01_01);
 
-        Rope rope_01_02 = new Rope(this, ropeImages.get(0), 1030, 1400);
+        Rope rope_01_02 = new Rope(this, ropeImages.get(0), 930, 1400);
         ropeList.add(rope_01_02);
 
-        Rope rope_02_01 = new Rope(this, ropeImages.get(1), 958, 1085);
+        Rope rope_02_01 = new Rope(this, ropeImages.get(1), 758, 1085);
         ropeList.add(rope_02_01);
 
         Rope rope_02_02 = new Rope(this, ropeImages.get(2), 2686, 1046);
@@ -122,8 +142,8 @@ public class MapleStoryClient extends MapleStoryFrame {
      */
     public List<Widget> widgetList = new CopyOnWriteArrayList<>();
     {
-        widgetList.add(new Widget(this, ImageUtil.getValue("elin_cave_0"), 1033, 1315, 2));
-        widgetList.add(new Widget(this, ImageUtil.getValue("elin_cave_1"), 1102, 1243, 2));
+        widgetList.add(new Widget(this, ImageUtil.getValue("elin_cave_0"), 633, 1315, 3));
+        widgetList.add(new Widget(this, ImageUtil.getValue("elin_cave_1"), 702, 1243, 3));
         widgetList.add(new Widget(this, ImageUtil.getValue("fairy_field_acc_6"), 215, 1165, 5));
     }
 
@@ -137,7 +157,7 @@ public class MapleStoryClient extends MapleStoryFrame {
     @Override
     public void paint(Graphics g) {
         Image canvas = ImageUtil.getValue("background").get(1);
-        g.drawImage(canvas, 0, Constant.GAME_HEIGHT - canvas.getHeight(null), null);
+        g.drawImage(canvas, 0, 0, null);
 
         bg.draw(g);
 

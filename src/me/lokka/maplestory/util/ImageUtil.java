@@ -59,10 +59,9 @@ public class ImageUtil {
 
         /* Ground Start */
         List<Image> ground = new CopyOnWriteArrayList<>();
-        ground.add(MapleStoryUtil.getImage("ground/ground_1"));
-        ground.add(MapleStoryUtil.getImage("ground/ground_2"));
-        ground.add(MapleStoryUtil.getImage("ground/ground_2_right"));
-        ground.add(MapleStoryUtil.getImage("ground/ground_3"));
+        for (int i = 0; i < 7; i++) {
+            ground.add(MapleStoryUtil.getImage("ground/ground_" + i));
+        }
         images.put("ground", ground);
         /* Ground End */
 

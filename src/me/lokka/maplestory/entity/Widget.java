@@ -23,7 +23,6 @@ public class Widget extends AbstractMapleStoryObject {
         this.x = x;
         this.y = y;
         this.rate = rate;
-        System.out.println(imgs.size());
     }
 
     private int cnt = -1, step = -1;
