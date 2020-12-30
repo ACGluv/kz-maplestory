@@ -109,7 +109,6 @@ public class Arrow extends AbstractMapleStoryObject {
                     msc.itemList.add(item);
                 }
             }
-
             return true;
         }
         return false;

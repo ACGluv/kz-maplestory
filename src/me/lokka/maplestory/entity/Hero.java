@@ -23,7 +23,7 @@ public class Hero extends AbstractMapleStoryObject {
         this.verticalDir = Direction.HOLD;
         this.action = Action.STAND;
         this.atk = 30;
-        this.MAX_HP = (int) 1e7;
+        this.MAX_HP = (int) 1e6;
         this.HP = this.MAX_HP;
     }
 

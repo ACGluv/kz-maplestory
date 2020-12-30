@@ -17,6 +17,8 @@ public class ImageUtil {
      */
     private static final Map<String, List<Image>> images = new HashMap<>();
 
+    private static final Map<String, Map<String, List<Image>>> imagesPlus = new HashMap<>();
+
     static {
         // logo 图片
         List<Image> logo = new CopyOnWriteArrayList<>();
@@ -45,6 +47,8 @@ public class ImageUtil {
         /* Common Start */
         List<Image> common = new CopyOnWriteArrayList<>();
         common.add(MapleStoryUtil.getImage("common/blood"));
+        common.add(MapleStoryUtil.getImage("common/boss_hp_bg"));
+        common.add(MapleStoryUtil.getImage("common/statusbar_hp"));
         images.put("common", common);
         /* Common End */
 
@@ -205,6 +209,78 @@ public class ImageUtil {
         images.put("mosnail", mosnail);
         /* Mosnail End */
 
+        /* Boss Start */
+        Map<String, List<Image>> boss = new HashMap<>();
+
+        List<Image> left_attack_2 = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 22; i++) {
+            left_attack_2.add(MapleStoryUtil.getImage("boss/elin/left/attack2/" + i));
+        }
+        boss.put("left_attack_2", left_attack_2);
+
+        List<Image> left_die = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            left_die.add(MapleStoryUtil.getImage("boss/elin/left/die/" + i));
+        }
+        boss.put("left_die", left_die);
+
+        List<Image> left_hit = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 1; i++) {
+            left_hit.add(MapleStoryUtil.getImage("boss/elin/left/hit/" + i));
+        }
+        boss.put("left_hit", left_hit);
+
+        List<Image> left_move = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            left_move.add(MapleStoryUtil.getImage("boss/elin/left/move/" + i));
+        }
+        boss.put("left_move", left_move);
+
+        List<Image> left_stand = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            left_stand.add(MapleStoryUtil.getImage("boss/elin/left/stand/" + i));
+        }
+        boss.put("left_stand", left_stand);
+
+        List<Image> right_attack_2 = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 22; i++) {
+            right_attack_2.add(MapleStoryUtil.getImage("boss/elin/right/attack2/" + i));
+        }
+        boss.put("right_attack_2", right_attack_2);
+
+        List<Image> right_die = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            right_die.add(MapleStoryUtil.getImage("boss/elin/right/die/" + i));
+        }
+        boss.put("right_die", right_die);
+
+        List<Image> right_hit = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 1; i++) {
+            right_hit.add(MapleStoryUtil.getImage("boss/elin/right/hit/" + i));
+        }
+        boss.put("right_hit", right_hit);
+
+        List<Image> right_move = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            right_move.add(MapleStoryUtil.getImage("boss/elin/right/move/" + i));
+        }
+        boss.put("right_move", right_move);
+
+        List<Image> right_stand = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            right_stand.add(MapleStoryUtil.getImage("boss/elin/right/stand/" + i));
+        }
+        boss.put("right_stand", right_stand);
+
+        List<Image> hit_attack_2 = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            hit_attack_2.add(MapleStoryUtil.getImage("boss/elin/hit/attack2/" + i));
+        }
+        boss.put("hit_attack_2", hit_attack_2);
+
+        imagesPlus.put("boss", boss);
+        /* Boss End */
+
 
         /* Item Start */
         List<Image> blood = new CopyOnWriteArrayList<>();
@@ -294,6 +370,10 @@ public class ImageUtil {
      */
     public static List<Image> getValue(String key) {
         return images.get(key);
+    }
+
+    public static Map<String, List<Image>> getMapValue(String key) {
+        return imagesPlus.get(key);
     }
 
 }

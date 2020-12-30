@@ -15,7 +15,7 @@ public class Widget extends AbstractMapleStoryObject {
     /**
      * 图片切换频率
      */
-    private int rate;
+    public int rate;
 
     public Widget(MapleStoryClient msc, List<Image> imageList, int x, int y, int rate) {
         this.msc = msc;

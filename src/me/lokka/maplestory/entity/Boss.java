@@ -7,13 +7,14 @@ import me.lokka.maplestory.util.MusicThread;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 
 /**
- * @Description 怪物类
+ * @Description BOSS类
  * @Author: kainzhang (张健)
- * @Date: 2020/12/4 8:29 AM
+ * @Date: 2020/12/30 11:55 AM
  */
-public class Mob extends AbstractMapleStoryObject {
+public class Boss extends Mob {
 
     /**
      * 最大血量
@@ -22,14 +23,12 @@ public class Mob extends AbstractMapleStoryObject {
 
     public boolean underAttack = false;
 
-    public Mob() {
+    private Map<String, List<Image>> imgDict;
 
-    }
-
-    public Mob(List<Image> imgs) {
-        this.imgs = imgs;
-        this.width = imgs.get(0).getWidth(null);
-        this.height = imgs.get(0).getHeight(null);
+    public Boss(Map<String, List<Image>> imgDict) {
+        this.imgDict = imgDict;
+        this.width = imgDict.get("left_stand").get(0).getWidth(null);
+        this.height = imgDict.get("left_stand").get(0).getHeight(null);
         this.x = 500;
         this.y = 700;
         this.HP = MAX_HP;
@@ -37,8 +36,8 @@ public class Mob extends AbstractMapleStoryObject {
         this.left = true;
     }
 
-    public Mob(MapleStoryClient msc, List<Image> imgs, int x, int y) {
-        this(imgs);
+    public Boss(MapleStoryClient msc, Map<String, List<Image>> imgDict, int x, int y) {
+        this(imgDict);
         this.msc = msc;
         this.x = x;
         this.y = y;
@@ -47,8 +46,8 @@ public class Mob extends AbstractMapleStoryObject {
         this.action = Action.STAND;
     }
 
-    public Mob(MapleStoryClient msc, List<Image> imgs, int x, int y, String name, int level, int HP, int MP, int EXP, int speed) {
-        this(msc, imgs, x, y);
+    public Boss(MapleStoryClient msc, Map<String, List<Image>> imgDict, int x, int y, String name, int level, int HP, int MP, int EXP, int speed) {
+        this(msc, imgDict, x, y);
         this.msc = msc;
         this.name = name;
         this.level = level;
@@ -60,7 +59,7 @@ public class Mob extends AbstractMapleStoryObject {
 
     private int cnt = 0, step = -1;
     private void calcStep() {
-    // 图片切换速度
+        // 图片切换速度
         switch (action) {
             case WALK:
             case STAND:
@@ -89,8 +88,8 @@ public class Mob extends AbstractMapleStoryObject {
                 right = true;
             }
         }
-        if (x >= 1800) {
-            x = 1800;
+        if (x >= msc.bg.width - this.width) {
+            x = msc.bg.width - this.width;
             if (right) {
                 left = true;
                 right = false;
@@ -127,7 +126,7 @@ public class Mob extends AbstractMapleStoryObject {
                 dir = Direction.LEFT;
             }
 
-            if (Math.abs(msc.hero.x + msc.hero.width / 2 - (x + msc.bg.x + width / 2)) > 200 && !attacking) {
+            if (Math.abs(msc.hero.x + msc.hero.width / 2 - (x + msc.bg.x + width / 2)) > 300 && !attacking) {
                 action = Action.WALK;
                 attack_cnt = 0;
             } else {
@@ -177,10 +176,19 @@ public class Mob extends AbstractMapleStoryObject {
     }
 
     private void drawBloodBar(Graphics g) {
-        Image bloodBlk = ImageUtil.getValue("common").get(0);
-        int bloodBlkWidth = bloodBlk.getWidth(null);
-        for (int i = 0; i <= (width / bloodBlkWidth - 1) * HP / MAX_HP; i++) {
-            g.drawImage(bloodBlk, msc.bg.x + x + i * bloodBlkWidth, msc.bg.y + y - 12 , null);
+        Image bg = ImageUtil.getValue("common").get(1);
+        int bgWidth = bg.getWidth(null);
+        int bgX = Constant.GAME_WIDTH / 2 - bgWidth / 2;
+        int bgY = 100;
+
+        g.drawImage(bg, bgX, bgY, null);
+
+        Image blk = ImageUtil.getValue("common").get(2);
+        int blkWidth = (int) (blk.getWidth(null) * 1.2);
+        int blkHeight = (int) (blk.getHeight(null) * 1.2);
+
+        for (int i = 0; i <= (bgWidth / blkWidth) * HP / MAX_HP - 8; i++) {
+            g.drawImage(blk, bgX + 3 + i * blkWidth, bgY + 3, blkWidth, blkHeight, null);
         }
     }
 
@@ -188,40 +196,47 @@ public class Mob extends AbstractMapleStoryObject {
     public void draw(Graphics g) {
         move();
         calcStep();
-        int idx = 0; // 图片序号
+        int len, idx;
         switch (dir) {
             case LEFT:
                 switch (action) {
                     case STAND:
-                        idx = step % 6;
+                        len = imgDict.get("left_stand").size();
+                        img = imgDict.get("left_stand").get(step % len);
                         break;
                     case WALK:
-                        idx = step % 12 + 12;
+                        len = imgDict.get("left_move").size();
+                        img = imgDict.get("left_move").get(step % len);
                         break;
                     case HIT:
-                        idx = 36;
+                        img = imgDict.get("left_hit").get(0);
                         break;
                     case DIE:
-                        idx = step % 8 + 38;
-                        if (idx == 38) {
-                            new MusicThread("mossysnail/Die.mp3", false).start();
-                        }
-                        if (idx == 45) {
+                        len = imgDict.get("left_die").size();
+                        idx = step % (len + 1);
+                        if (idx == len) {
+//                            new MusicThread("boss/Die.mp3", false).start();
                             msc.mobList.remove(this);
                             return;
                         }
+                        img = imgDict.get("left_die").get(idx);
                         break;
                     case ATTACK:
-                        idx = step % 23 + 52;
-                        if (idx == 74) {
+                        len = imgDict.get("left_attack_2").size();
+                        idx = step % (len + 1);
+                        if (idx == len) {
                             action = Action.STAND;
                             attacking = false;
-                            return;
-                        } else if (idx == 52 + 23 / 2) {
+                            img = imgDict.get("left_stand").get(0);
+                            break;
+                        } else if (idx == len / 2) {
                             if (getAttackRange().intersects(msc.hero.getRectangle())) {
-                                msc.hero.HP -= random.nextInt(50000);
+                                msc.hitList.add(new Hit(msc, imgDict.get("hit_attack_2"), msc.hero.x - 12, msc.hero.y - 20, 2));
+                                int dmg = (int) (random.nextDouble() * 50000 + 100000);
+                                msc.hero.HP -= dmg;
                             }
                         }
+                        img = imgDict.get("left_attack_2").get(idx);
                         break;
                     default:
                         break;
@@ -230,35 +245,42 @@ public class Mob extends AbstractMapleStoryObject {
             case RIGHT:
                 switch (action) {
                     case STAND:
-                        idx = step % 6 + 6;
+                        len = imgDict.get("right_stand").size();
+                        img = imgDict.get("right_stand").get(step % len);
                         break;
                     case WALK:
-                        idx = step % 12 + 24;
+                        len = imgDict.get("right_move").size();
+                        img = imgDict.get("right_move").get(step % len);
                         break;
                     case HIT:
-                        idx = 37;
+                        img = imgDict.get("right_hit").get(0);
                         break;
                     case DIE:
-                        idx = step % 8 + 45;
-                        if (idx == 45) {
-                            new MusicThread("mossysnail/Die.mp3", false).start();
-                        }
-                        if (idx == 52) {
+                        len = imgDict.get("right_die").size();
+                        idx = step % (len + 1);
+                        if (idx == len) {
+//                            new MusicThread("boss/Die.mp3", false).start();
                             msc.mobList.remove(this);
                             return;
                         }
+                        img = imgDict.get("right_die").get(idx);
                         break;
                     case ATTACK:
-                        idx = step % 23 + 74;
-                        if (idx == 96) {
+                        len = imgDict.get("right_attack_2").size();
+                        idx = step % (len + 1);
+                        if (idx == len) {
                             action = Action.STAND;
                             attacking = false;
-                            return;
-                        } else if (idx == 74 + 23 / 2) {
+                            img = imgDict.get("right_stand").get(0);
+                            break;
+                        } else if (idx == len / 2) {
                             if (getAttackRange().intersects(msc.hero.getRectangle())) {
-                                msc.hero.HP -= random.nextInt(1000000);
+                                msc.hitList.add(new Hit(msc, imgDict.get("hit_attack_2"), msc.hero.x - 12, msc.hero.y - 20, 2));
+                                int dmg = (int) (random.nextDouble() * 50000 + 100000);
+                                msc.hero.HP -= dmg;
                             }
                         }
+                        img = imgDict.get("right_attack_2").get(idx);
                         break;
                     default:
                         break;
@@ -268,36 +290,44 @@ public class Mob extends AbstractMapleStoryObject {
                 break;
         }
 
-        img = imgs.get(idx);
         if (!live) {
             if (dir == Direction.LEFT) {  // 更新右下角 x轴
                 die_x_right = Math.max(die_x_right, x + img.getWidth(null));
             }
             g.drawImage(
-                    img,
-                    msc.bg.x + die_x_right - img.getWidth(null),
-                    msc.bg.y + origin_y_down - img.getHeight(null),
-                    null
+                img,
+                msc.bg.x + die_x_right - img.getWidth(null),
+                msc.bg.y + origin_y_down - img.getHeight(null),
+                null
             );
         } else {
-//            if (action == Action.ATTACK) {
-//                g.drawImage(
-//                        img,
-//                        msc.bg.x + x,
-//                        msc.bg.y + y,
-//                        null
-//                );
-//            } else {
-                g.drawImage(
+            if (action == Action.ATTACK) {
+                if (dir == Direction.LEFT) {
+                    g.drawImage(
                         img,
-                        msc.bg.x + x,
-                        msc.bg.y + origin_y_down - img.getHeight(null),
+                        msc.bg.x + x - 150,
+                        msc.bg.y + y - 100,
                         null
+                    );
+                } else {
+                    g.drawImage(
+                        img,
+                        msc.bg.x + x - 120,
+                        msc.bg.y + y - 100,
+                        null
+                    );
+                }
+            } else {
+                g.drawImage(
+                    img,
+                    msc.bg.x + x,
+                    msc.bg.y + origin_y_down - img.getHeight(null),
+                    null
                 );
-//                g.drawRect(msc.bg.x + x + width / 2 - 200, msc.bg.y + y + height / 2 - 100, 400, 200);
-//            }
+            }
+            g.drawRect(msc.bg.x + x + width / 2 - 300, msc.bg.y + y + height / 2 - 200, 600, 400);
         }
-        if (HP < MAX_HP && live) {
+        if (HP <= MAX_HP && live) {
             drawBloodBar(g);
             underAttack = true;
         }
@@ -309,6 +339,6 @@ public class Mob extends AbstractMapleStoryObject {
     }
 
     public Rectangle getAttackRange() {
-        return new Rectangle(msc.bg.x + x + width / 2 - 200, msc.bg.y + y + height / 2 - 100, 400, 200 );
+        return new Rectangle(msc.bg.x + x + width / 2 - 300, msc.bg.y + y + height / 2 - 200, 600, 400 );
     }
 }

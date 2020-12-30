@@ -128,17 +128,26 @@ public class MapleStoryClient extends MapleStoryFrame {
      */
     public List<Mob> mobList = new CopyOnWriteArrayList<>();
 
-    public List<Item> itemList = new CopyOnWriteArrayList<>();
-
     /**
      * 初始化 Mob 容器
      */
     {
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 1; i++) {
             Mob mob = new Mob(this, ImageUtil.getValue("mosnail"), i * 200 + 500, 1612);
             mobList.add(mob);
         }
     }
+    Mob boss = new Boss(this, ImageUtil.getMapValue("boss"), 3500, 1482);
+
+    /**
+     * 道具的容器
+     */
+    public List<Item> itemList = new CopyOnWriteArrayList<>();
+
+    /**
+     * 击中效果容器
+     */
+    public List<Hit> hitList = new CopyOnWriteArrayList<>();
 
     /**
      * 地图装饰物容器
@@ -160,6 +169,8 @@ public class MapleStoryClient extends MapleStoryFrame {
     public List<Power> powerList = new CopyOnWriteArrayList<>();
 
     public ItemPackage itemPackage = new ItemPackage(this, 1300, 300);
+
+    private boolean bossFlag = false;
 
     @Override
     public void paint(Graphics g) {
@@ -192,6 +203,10 @@ public class MapleStoryClient extends MapleStoryFrame {
         g.setFont(f);
         g.setColor(c);
 
+        if (mobList.isEmpty() && !bossFlag) {
+            mobList.add(boss);
+            bossFlag = true;
+        }
         for (Mob mob : mobList) {
             mob.draw(g);
         }
@@ -210,6 +225,10 @@ public class MapleStoryClient extends MapleStoryFrame {
         }
 
         hero.draw(g);
+
+        for (Hit hit : hitList) {
+            hit.draw(g);
+        }
 
         itemPackage.draw(g);
     }
