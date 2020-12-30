@@ -134,7 +134,7 @@ public class MapleStoryClient extends MapleStoryFrame {
      * 初始化 Mob 容器
      */
     {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 6; i++) {
             Mob mob = new Mob(this, ImageUtil.getValue("mosnail"), i * 200 + 500, 1612);
             mobList.add(mob);
         }
@@ -187,12 +187,7 @@ public class MapleStoryClient extends MapleStoryFrame {
         g.drawString("Hero.x: " + hero.x, 200, 120);
         g.drawString("Hero.y: " + hero.y, 200, 150);
         g.drawString("Hero.action: " + hero.action, 200, 180);
-        g.drawString("Hero.jump: " + hero.jump, 200, 210);
         g.drawString("Hero.drop: " + hero.drop, 200, 240);
-        g.drawString("Mob.x: " + (bg.x + mobList.get(0).x), 200, 270);
-        g.drawString("Mob.y: " + (bg.y + mobList.get(0).y), 200, 300);
-        g.drawString("Mob.action: " + mobList.get(0).action, 200, 330);
-        g.drawString("Mob.attack_cnt: " + mobList.get(0).attack_cnt, 200, 360);
 //        g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
         g.setFont(f);
         g.setColor(c);

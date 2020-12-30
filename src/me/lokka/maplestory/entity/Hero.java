@@ -318,13 +318,13 @@ public class Hero extends AbstractMapleStoryObject {
 
         if (prone) {
             g.drawImage(img, x, y + 26, null);
-            g.drawRect(x, y + 26, img.getWidth(null), img.getHeight(null));
+//            g.drawRect(x, y + 26, img.getWidth(null), img.getHeight(null));
         } else if (jump) {
             g.drawImage(img, x, y, null);
-            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
+//            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
         } else {
             g.drawImage(img, x, y, null);
-            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
+//            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
         }
 
         if (HP <= MAX_HP && live) {

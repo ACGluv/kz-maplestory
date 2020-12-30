@@ -197,6 +197,9 @@ public class Mob extends AbstractMapleStoryObject {
                         break;
                     case DIE:
                         idx = step % 8 + 38;
+                        if (idx == 38) {
+                            new MusicThread("mossysnail/Die.mp3", false).start();
+                        }
                         if (idx == 45) {
                             msc.mobList.remove(this);
                             return;
@@ -231,6 +234,9 @@ public class Mob extends AbstractMapleStoryObject {
                         break;
                     case DIE:
                         idx = step % 8 + 45;
+                        if (idx == 45) {
+                            new MusicThread("mossysnail/Die.mp3", false).start();
+                        }
                         if (idx == 52) {
                             msc.mobList.remove(this);
                             return;
@@ -282,7 +288,7 @@ public class Mob extends AbstractMapleStoryObject {
                         msc.bg.y + origin_y_down - img.getHeight(null),
                         null
                 );
-                g.drawRect(msc.bg.x + x + width / 2 - 200, msc.bg.y + y + height / 2 - 100, 400, 200);
+//                g.drawRect(msc.bg.x + x + width / 2 - 200, msc.bg.y + y + height / 2 - 100, 400, 200);
 //            }
         }
         if (HP < MAX_HP && live) {
