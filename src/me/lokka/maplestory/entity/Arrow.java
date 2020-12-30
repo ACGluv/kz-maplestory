@@ -100,7 +100,6 @@ public class Arrow extends AbstractMapleStoryObject {
             } else {
                 mob.dir = Direction.LEFT;
             }
-            mob.underAttack = true;
             msc.powerList.add(new Power(msc, mob.x + mob.width / 2, mob.y - 30, atk));
             if (mob.HP <= 0) {
                 mob.live = false;

@@ -189,8 +189,10 @@ public class MapleStoryClient extends MapleStoryFrame {
         g.drawString("Hero.action: " + hero.action, 200, 180);
         g.drawString("Hero.jump: " + hero.jump, 200, 210);
         g.drawString("Hero.drop: " + hero.drop, 200, 240);
-        g.drawString("Ground1.x: " + (bg.x + groundList.get(0).x), 200, 270);
-        g.drawString("Ground1.y: " + (bg.y + groundList.get(0).y), 200, 300);
+        g.drawString("Mob.x: " + (bg.x + mobList.get(0).x), 200, 270);
+        g.drawString("Mob.y: " + (bg.y + mobList.get(0).y), 200, 300);
+        g.drawString("Mob.action: " + mobList.get(0).action, 200, 330);
+        g.drawString("Mob.attack_cnt: " + mobList.get(0).attack_cnt, 200, 360);
 //        g.drawLine(Constant.GAME_WIDTH / 2, 0, Constant.GAME_WIDTH / 2, Constant.GAME_HEIGHT);
         g.setFont(f);
         g.setColor(c);
@@ -219,6 +221,6 @@ public class MapleStoryClient extends MapleStoryFrame {
 
     public static void main(String[] args) {
         new MapleStoryClient().loadFrame();
-//        new MusicThread("bgm.mp3", true).start();
+        new MusicThread("bgm.mp3", true).start();
     }
 }

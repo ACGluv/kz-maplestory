@@ -23,7 +23,7 @@ public class Hero extends AbstractMapleStoryObject {
         this.verticalDir = Direction.HOLD;
         this.action = Action.STAND;
         this.atk = 30;
-        this.MAX_HP = (int) 1e6;
+        this.MAX_HP = (int) 1e7;
         this.HP = this.MAX_HP;
     }
 
@@ -318,13 +318,13 @@ public class Hero extends AbstractMapleStoryObject {
 
         if (prone) {
             g.drawImage(img, x, y + 26, null);
-//            g.drawRect(x, y + 26, img.getWidth(null), img.getHeight(null));
+            g.drawRect(x, y + 26, img.getWidth(null), img.getHeight(null));
         } else if (jump) {
             g.drawImage(img, x, y, null);
-//            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
+            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
         } else {
             g.drawImage(img, x, y, null);
-//            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
+            g.drawRect(x, y, img.getWidth(null), img.getHeight(null));
         }
 
         if (HP <= MAX_HP && live) {
@@ -334,7 +334,7 @@ public class Hero extends AbstractMapleStoryObject {
 
     private Integer climbable(List<Rope> ropeList) {
         for (Rope rope : ropeList) {
-            if (this.getRectangle().intersects(rope.getRectangle())) {
+            if (this.getValidRange().intersects(rope.getRectangle())) {
                 if (verticalDir == Direction.UP && this.y + this.height - (msc.bg.y + rope.y) < 8) return null;
                 return rope.x + msc.bg.x;
             }
@@ -412,6 +412,10 @@ public class Hero extends AbstractMapleStoryObject {
 
     @Override
     public Rectangle getRectangle() {
+        return new Rectangle(x, y, width, height);
+    }
+
+    public Rectangle getValidRange() {
         return new Rectangle(x + width / 3, y + 12, width / 3, height - 12);
     }
 

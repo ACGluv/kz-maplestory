@@ -3,6 +3,7 @@ package me.lokka.maplestory.entity;
 import me.lokka.maplestory.client.MapleStoryClient;
 import me.lokka.maplestory.constant.Constant;
 import me.lokka.maplestory.util.ImageUtil;
+import me.lokka.maplestory.util.MusicThread;
 
 import java.awt.*;
 import java.util.List;
@@ -70,7 +71,7 @@ public class Mob extends AbstractMapleStoryObject {
                 }
                 break;
             case ATTACK:
-                if (cnt++ % 2 == 0) step++;
+                if (cnt++ % 3 == 0) step++;
                 break;
             default:
                 break;
@@ -95,10 +96,11 @@ public class Mob extends AbstractMapleStoryObject {
     }
 
     private boolean flag = false;
-    public boolean hit, left, right;
+    public boolean hit, left, right, attacking;
     Direction[] dirs = {Direction.RIGHT, Direction.LEFT};
     Action[] actions = {Action.WALK, Action.STAND};
 
+    public int attack_cnt = 0;
     @Override
     public void move() {
         // 修改当前怪物的状态，包括方向、动作
@@ -111,6 +113,28 @@ public class Mob extends AbstractMapleStoryObject {
                     step = -1;
                 }
                 action = tmp_action;
+            }
+        } else {
+            if (msc.hero.x > x + msc.bg.x) {
+                dir = Direction.RIGHT;
+            } else {
+                dir = Direction.LEFT;
+            }
+
+            if (Math.abs(msc.hero.x + msc.hero.width / 2 - (x + msc.bg.x + width / 2)) > 200 && !attacking) {
+                action = Action.WALK;
+                attack_cnt = 0;
+            } else {
+                if (!attacking) {
+                    action = Action.STAND;
+                }
+                if (attack_cnt++ % 120 == 0) {
+                    action = Action.ATTACK;
+                    attacking = true;
+                    cnt = 0;
+                    step = -1;
+                    new MusicThread("mossysnail/Attack1.mp3", false).start();
+                }
             }
         }
 
@@ -179,7 +203,16 @@ public class Mob extends AbstractMapleStoryObject {
                         }
                         break;
                     case ATTACK:
-                        idx = step % 22 + 52;
+                        idx = step % 23 + 52;
+                        if (idx == 74) {
+                            action = Action.STAND;
+                            attacking = false;
+                            return;
+                        } else if (idx == 52 + 23 / 2) {
+                            if (getAttackRange().intersects(msc.hero.getRectangle())) {
+                                msc.hero.HP -= random.nextInt(50000);
+                            }
+                        }
                         break;
                     default:
                         break;
@@ -204,7 +237,16 @@ public class Mob extends AbstractMapleStoryObject {
                         }
                         break;
                     case ATTACK:
-                        idx = step % 22 + 74;
+                        idx = step % 23 + 74;
+                        if (idx == 96) {
+                            action = Action.STAND;
+                            attacking = false;
+                            return;
+                        } else if (idx == 74 + 23 / 2) {
+                            if (getAttackRange().intersects(msc.hero.getRectangle())) {
+                                msc.hero.HP -= random.nextInt(1000000);
+                            }
+                        }
                         break;
                     default:
                         break;
@@ -216,41 +258,45 @@ public class Mob extends AbstractMapleStoryObject {
 
         img = imgs.get(idx);
         if (!live) {
-            die_x_right = Math.max(die_x_right, x + img.getWidth(null));
-
+            if (dir == Direction.LEFT) {  // 更新右下角 x轴
+                die_x_right = Math.max(die_x_right, x + img.getWidth(null));
+            }
             g.drawImage(
                     img,
                     msc.bg.x + die_x_right - img.getWidth(null),
                     msc.bg.y + origin_y_down - img.getHeight(null),
                     null
             );
-//            g.drawRect(
-//                    msc.bg.x + die_x_right - img.getWidth(null),
-//                    msc.bg.y + origin_y_down - img.getHeight(null),
-//                    img.getWidth(null),
-//                    img.getHeight(null)
-//            );
         } else {
-            g.drawImage(
-                    img,
-                    msc.bg.x + x,
-                    msc.bg.y + origin_y_down - img.getHeight(null),
-                    null
-            );
-//            g.drawRect(
-//                    msc.bg.x + x,
-//                    msc.bg.y + origin_y_down - img.getHeight(null),
-//                    img.getWidth(null),
-//                    img.getHeight(null)
-//            );
+//            if (action == Action.ATTACK) {
+//                g.drawImage(
+//                        img,
+//                        msc.bg.x + x,
+//                        msc.bg.y + y,
+//                        null
+//                );
+//            } else {
+                g.drawImage(
+                        img,
+                        msc.bg.x + x,
+                        msc.bg.y + origin_y_down - img.getHeight(null),
+                        null
+                );
+                g.drawRect(msc.bg.x + x + width / 2 - 200, msc.bg.y + y + height / 2 - 100, 400, 200);
+//            }
         }
         if (HP < MAX_HP && live) {
             drawBloodBar(g);
+            underAttack = true;
         }
     }
 
     @Override
     public Rectangle getRectangle() {
         return new Rectangle(msc.bg.x + x, msc.bg.y + y, width, height);
+    }
+
+    public Rectangle getAttackRange() {
+        return new Rectangle(msc.bg.x + x + width / 2 - 200, msc.bg.y + y + height / 2 - 100, 400, 200 );
     }
 }
